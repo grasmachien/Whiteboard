@@ -1,0 +1,17 @@
+@import 'compass/reset';
+@import 'compass/css3';
+@import 'mixins';
+
+//vars
+
+//font-face
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+	font-size: 1em;
+}
+
+@include border-box-default;
