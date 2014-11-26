@@ -11,12 +11,27 @@ $routes = array(
     'home' => array(
         'controller' => 'Projects',
         'action' => 'index'
-    )
+    ),
+    'login-register' => array(
+    	'controller' => 'Users',
+    	'action' => 'loginregister'
+	),
+	'logout' => array(
+    	'controller' => 'Users',
+    	'action' => 'logout'
+	),
 );
 
 if(empty($_GET['page'])) {
     $_GET['page'] = 'home';
 }
+
+
+if (empty($_SESSION["user"]) && $_GET["page"] != "login-register") {
+    header("Location:index.php?page=login-register");
+    exit();
+}
+
 if(empty($routes[$_GET['page']])) {
     header('Location: index.php');
     exit();

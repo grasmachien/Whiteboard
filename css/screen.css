@@ -88,3 +88,9 @@ html {
   -webkit-box-sizing: inherit;
   box-sizing: inherit;
 }
+
+/* line 6, ../_scss/src/screen.scss */
+.welcome {
+  width: 600px;
+  margin: 0 auto;
+}
