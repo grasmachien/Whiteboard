@@ -1,16 +1,20 @@
 {
-	"name": "Whiteboard",
-	"version": "0.0.1",
-	"authors": [
-	],
-	"license": "MIT",
-	"ignore": [
-		"**/.*",
-		"node_modules",
-		"bower_components",
-		"test",
-		"tests"
-	],
-	"dependencies": {
-	}
+  "name": "Whiteboard",
+  "version": "0.1.0",
+  "authors": [
+    "Matthias Brodelet"
+  ],
+  "description": "Whiteboard Project",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "fallback": "~1.1.6"
+  }
 }

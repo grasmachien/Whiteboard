@@ -1,117 +1,51 @@
-/* globals __dirname: true */
+var gulp = require('gulp'),
+	browserify = require('browserify'),
+	source = require('vinyl-source-stream'),
+	gutil = require('gulp-util'),
+	jshint = require('gulp-jshint'),
+	uglify = require('gulp-uglify');
+	compass = require('gulp-compass');
 
-var gulp = require('gulp');
-var path = require("path");
-var browserify = require('browserify');
-var watchify = require('watchify');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
-var main_bower_files = require('main-bower-files');
-
-var config = require('./config.json');
-
-var plugins = require('gulp-load-plugins')({
-	pattern: ['gulp-*', 'gulp.*'],
-	replaceString: /\bgulp[\-.]/,
-});
-
-function getFilePath(target,type){
-	return config[type][target].folder + '/' + config[type][target].file;
-}
-
-var scripts = [
-	"**/*.js",
-	"!node_modules/**/*.js",
-	"!public/**/*.js",
-	"!js/**/*.js",
-	"!bower_components/**/*.js"
-];
-
-gulp.task('stylesheets', function() {
-	return gulp.src([getFilePath('src','stylesheets')])
-							.pipe(plugins.plumber())
-							.pipe(plugins.scssLint())
-							.pipe(plugins.compass({
-								css: config.stylesheets.dest.folder,
-								sass: config.stylesheets.src.folder,
-							}))
-							.pipe(plugins.autoprefixer({
-								browsers: ['last 2 versions','ie 9'],
-								cascade: false
-							}))
-							.pipe(plugins.util.env.type === 'production' ? plugins.minifyCss() : plugins.util.noop())
-							.pipe(plugins.filesize())
-							.pipe(gulp.dest(config.stylesheets.dest.folder));
-});
-
-function browserify_file(file){
-
-	function rebundle(){
-
-		return bundler.bundle()
-			.on('error', function(error){
-				console.log(error);
-				this.emit("end");
-			})
-			.pipe(source(path.basename(file)))
-			.pipe(buffer())
-			.pipe(plugins.util.env.type === 'production' ? plugins.uglify() : plugins.util.noop())
-			.pipe(plugins.filesize())
-			.pipe(gulp.dest(config.scripts.dest.folder));
-	}
-
-	var bundler = watchify(browserify(file, watchify.args));
-	bundler.on('update', rebundle);
-
-	return rebundle();
-
-}
-
-gulp.task("scripts",function(){
-	return gulp.src(getFilePath('src','scripts'))
-					.pipe(plugins.tap(function(file){
-						return browserify_file("./" + path.relative(__dirname, file.path));
-					}));
-});
-
-gulp.task("vendor", function(){
-
-  var js_filter = plugins.filter(['*.js']);
-  var css_filter = plugins.filter(['*.css']);
-  var fonts_filter = plugins.filter(['*.ttf','*.eot','*.svg','*.woff']);
-
-	return gulp.src(main_bower_files())
-							.pipe(js_filter)
-							.pipe(plugins.uglify())
-							.pipe(plugins.concat(config.vendor.dest.file))
-							.pipe(gulp.dest(config.scripts.dest.folder))
-							.pipe(js_filter.restore())
-							.pipe(css_filter)
-							.pipe(plugins.minifyCss())
-							.pipe(gulp.dest(config.stylesheets.dest.folder))
-							.pipe(css_filter.restore())
-							.pipe(fonts_filter)
-							.pipe(gulp.dest(config.fonts.dest.folder));
+gulp.task('scripts', function(){ 
+	var bundler = browserify({
+		entries: ['./js/src/script.js'] 
+	});
+	return bundler.bundle()
+		// als er errors zijn: log de error, en laat verder gulp runnen
+		.on('error', function(err) {
+			console.log(err.message);
+			gutil.beep(); 
+			this.emit('end');
+		})
+		
+	.pipe(source('script.dist.js')) 
+	.pipe(gulp.dest('./js'));
 
 });
 
-gulp.task("hinting", function(){
-	return gulp.src(scripts)
-							.pipe(plugins.plumber())
-							.pipe(plugins.jshint())
-							.pipe(plugins.jshint.reporter('jshint-stylish'))
-							.pipe(plugins.jshint.reporter("fail"))
-							.on('error', function(error){
-								plugins.util.beep();
-								this.emit("end");
-							});
+gulp.task('lint', function(){
+	return gulp.src('./js/src/**/*.js')
+		.pipe(jshint())
+		.pipe(jshint.reporter('jshint-stylish'));
 });
 
-gulp.task('watch', function() {
-	gulp.watch(getFilePath('src','vendor'), ['vendor']);
-	gulp.watch(getFilePath('src','scripts'), ['scripts']);
-	gulp.watch(getFilePath("src","stylesheets"), ['stylesheets']);
-	gulp.watch(scripts, ['hinting']);
+gulp.task('compress', function (){
+	gulp.src('./js/script.dist.js')
+		.pipe(uglify())
+		.pipe(gulp.dest('js'))
 });
 
-gulp.task('default', ['watch', 'stylesheets', 'hinting', 'scripts', 'vendor']);
+// gulp.task('compass', function() {
+//   gulp.src('./src/*.scss')
+//     .pipe(compass({
+//       config_file: './config.rb',
+//       css: 'css',
+//       sass: '_scss'
+//     }))
+//     .pipe(gulp.dest('app/'));
+// });
+
+gulp.task('default', function (){
+	var watcher = gulp.watch(['js/src/**/*.js'], ['lint', 'scripts']);
+
+});

@@ -1,4 +1,0 @@
-Whiteboard
-==========
-
-CPIII Whiteboard

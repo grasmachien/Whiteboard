@@ -2,7 +2,7 @@
 	"curly": true,
 	"eqeqeq": true,
 	"immed": false,
-	"latedef": false,
+	"latedef": true,
 	"newcap": true,
 	"noarg": true,
 	"sub": true,
@@ -14,9 +14,9 @@
 	"noempty": true,
 	"trailing": true,
 	"globals": {
+		"console": true,
 		"module": true,
 		"require": true,
-		"$": true,
-		"console": true
+		"fallback": true
 	}
 }
