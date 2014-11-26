@@ -35,17 +35,20 @@ gulp.task('compress', function (){
 		.pipe(gulp.dest('js'))
 });
 
-// gulp.task('compass', function() {
-//   gulp.src('./src/*.scss')
-//     .pipe(compass({
-//       config_file: './config.rb',
-//       css: 'css',
-//       sass: '_scss'
-//     }))
-//     .pipe(gulp.dest('app/'));
-// });
 
 gulp.task('default', function (){
 	var watcher = gulp.watch(['js/src/**/*.js'], ['lint', 'scripts']);
+		gulp.watch('./_scss/src/*.scss', ['compass']);
 
+});
+
+gulp.task('compass', function() {
+	    console.log('compasssss');
+  gulp.src('_scss/src/*.scss')
+    .pipe(compass({
+      config_file: 'config.rb',
+      css: 'css',
+      sass: '_scss'
+    }))
+    .pipe(gulp.dest('app/assets/temp'));
 });
