@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8">
   <title>Whiteboard</title>
-  <link href="css/screen.css" rel="stylesheet" type="text/css" />
+  <link href="css/src/screen.css" rel="stylesheet" type="text/css" />
 <body>
 <div class="container">
   <div class="main">
