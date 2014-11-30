@@ -43,7 +43,6 @@ gulp.task('default', function (){
 });
 
 gulp.task('compass', function() {
-	    console.log('compasssss');
   gulp.src('_scss/src/*.scss')
     .pipe(compass({
       config_file: 'config.rb',
