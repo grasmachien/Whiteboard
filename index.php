@@ -24,6 +24,10 @@ $routes = array(
         'controller' => 'Projects',
         'action' => 'createProject'
     ),
+    'board' => array(
+        'controller' => 'Projects',
+        'action' => 'board'
+    ),
 );
 
 if(empty($_GET['page'])) {

@@ -41,6 +41,6 @@
 		</div> --> 
 
 
-		<input type="submit" value="Aanmaken">
+		<input type="submit" name="action" value="Aanmaken">
 	</form>
 </div>

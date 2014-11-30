@@ -19,6 +19,20 @@ class ProjectsController extends Controller {
 		$erros = array();
 		$size = array();
 
+		if(!empty($_POST['action'])){
+
+			$insertedproject = $this->projectDAO->insert(array(
+				'nieuwProjectNaam' => $_POST['nieuwProjectNaam']
+			));
+			if(!empty($insertedproject)) {
+
+				$name = $_POST['nieuwProjectNaam'];
+				$this->redirect('index.php?page=board&name='.$name);
+			}
+			
+			
+		}
+
 		if (!empty($_SESSION['user'])) {
 			if (!empty($_POST)) {
 				if (empty($_POST['nieuwProjectNaam'])) {
@@ -27,10 +41,15 @@ class ProjectsController extends Controller {
 				if (empty($_POST['nieuwProjectNaam'])) {
 					$errors['nieuwProjectNaam'] = "Geef een project naam in";
 				}
-				
-				
+			
 			}
 		}
+
+		
+
+	}
+
+	public function board() {
 
 	}
 

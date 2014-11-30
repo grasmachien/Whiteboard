@@ -2,8 +2,8 @@
 class DAO {
 	private static $dbHost = "localhost";
 	private static $dbName = "whiteboard";
-	private static $dbUser = "whiteboardUser";
-	private static $dbPass = "whiteboardPass";
+	private static $dbUser = "board_user";
+	private static $dbPass = "test";
 	private static $sharedPDO;
 
 	protected $pdo;
