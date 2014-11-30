@@ -20,6 +20,10 @@ $routes = array(
     	'controller' => 'Users',
     	'action' => 'logout'
 	),
+    'createProject' => array(
+        'controller' => 'Projects',
+        'action' => 'createProject'
+    ),
 );
 
 if(empty($_GET['page'])) {
