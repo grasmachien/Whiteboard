@@ -24,6 +24,12 @@ class Controller {
         exit();
     }
 
+    public function trace($var){
+        echo "<pre>";
+        print_r($var);
+        echo "</pre>";
+    }
+
     private function createViewVarWithContent() {
         extract($this->viewVars, EXTR_OVERWRITE);
         ob_start();

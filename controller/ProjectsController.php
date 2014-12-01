@@ -52,7 +52,7 @@ class ProjectsController extends Controller {
 	public function board() {
 
 		$existingTekst = $this->projectDAO->getTekstForProject($_GET['name']);
-		var_dump($existingTekst);
+		$this->trace($existingTekst);
 		$this->set('existingTekst', $existingTekst);
 
 		if(!empty($_POST['action'])) {
