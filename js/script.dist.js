@@ -6,12 +6,28 @@
 		new App();
 
 		var btn = document.querySelector('.txt');
+		var btnvid = document.querySelector('.video');
 		if(btn) {
 			btn.addEventListener("click", function(){
 				console.log('click');
 
 				var uploadblock = document.getElementById('pop'); 
 				var form = document.getElementById('uploadwrap'); 
+				form.classList.add("animform");
+
+				uploadblock.classList.remove("hidden");
+				uploadblock.classList.add("uploadblock");
+
+				
+			});
+		}
+
+		if(btnvid) {
+			btnvid.addEventListener("click", function(){
+				console.log('click');
+
+				var uploadblock = document.getElementById('popvideo'); 
+				var form = document.getElementById('uploadwrapvideo'); 
 				form.classList.add("animform");
 
 				uploadblock.classList.remove("hidden");

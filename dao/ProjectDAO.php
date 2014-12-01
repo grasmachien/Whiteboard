@@ -26,18 +26,43 @@ class ProjectDAO extends DAO {
 			$stmt->bindValue(':tekst', $data['nieuwtekst']);
 			$stmt->bindValue(':project', $_GET["name"]);
 			if($stmt->execute()) {
-				$insertedId = $this->pdo->lastInsertId();
-				return $this->selectById($insertedId);
+				
+	
 			}
 		}
 		return false;
 	}
+
+	public function addnew($name,$video){
+        return $this->newVideo($name,$video);
+    }
+
+    public function newVideo($name,$video){
+            $sql = "INSERT INTO whiteboard_video(name,video)
+                    VALUES(:name,:video)";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindValue(":name",$name);
+            $stmt->bindValue(":video",$video);
+            if($stmt->execute()){
+            }
+            return false;
+    }
 
 	public function getTekstForProject($project) {
 		$sql = "SELECT * FROM `whiteboard_tekst` WHERE `project` = :project";
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->bindValue(':project', $project);
 		$stmt->execute();
+
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function getVideoForProject($project) {
+		$sql = "SELECT * FROM `whiteboard_video` WHERE `project` = :project";
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->bindValue(':project', $project);
+		$stmt->execute();
+
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
