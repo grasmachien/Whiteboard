@@ -13,7 +13,6 @@
 	</ul>
 </div>
 
-
 <div class="createProjForm">
 	<header><h1>Maak een nieuw project aan</h1></header>
 	<form action="index.php?page=createProject" method="post" enctype="multipart/form-data">
@@ -26,12 +25,11 @@
 			<label class="col-sm-2 control-label" for="addImageImage">Foto:</label>
 	        <input type="file" name="image" id="addImageProject" value="<?php if(!empty($_POST['image'])) echo $_POST['image'];?>" />
 	        <span class="error-message"<?php if(empty($errors['image'])) echo 'style="display: none;"';?>>
-	        <?php if(!empty($errors['addImageProject'])) echo '<span class="error-message">' . $errors['addImageProject'] . '</span>'; ?>
+	        <?php if(!empty($errors['image'])) echo '<span class="error-message">' . $errors['image'] . '</span>'; ?>
 		</div>
 		<div>
 			<label for="newProjectNaam">Verschillende issue statussen?</label>
-			<input type="checkbox" name="nieuwProjectNaam" id="newProjectNaam" value="<?php if (!empty($_POST['nieuwProjectNaam'])) echo $_POST['nieuwProjectNaam']; ?>">
-			<?php if(!empty($errors['nieuwProjectNaam'])) echo '<span class="error-message">' . $errors['nieuwProjectNaam'] . '</span>'; ?>
+			<input type="checkbox" name="projectStatussen" id="projectStatussen" value="<?php if (!empty($_POST['projectStatussen'])) echo $_POST['projectStatussen']; ?>">
 			<p>(Dit ongecheckt laten geeft je gewoon een whiteboard, dit checken geeft je een volledig processbord.)</p>
 		</div>
 		
