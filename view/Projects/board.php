@@ -13,14 +13,16 @@
 	</ul>
 </div>
 
-
-<?php foreach($existingTekst as $existing): ?>
-
-
-		<p><?php echo $existing["tekst"]; ?></p>
+<?php
+	if (!empty($existingTekst)) {
+		
 	
-
-<?php endforeach; ?>
+	 	foreach($existingTekst as $existing): ?>
+			<p><?php echo $existing["tekst"]; ?></p>
+<?php
+		endforeach; 
+	}
+?>
 
 
 
