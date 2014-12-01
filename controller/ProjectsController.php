@@ -51,6 +51,31 @@ class ProjectsController extends Controller {
 
 	public function board() {
 
+		$existingTekst = $this->projectDAO->getTekstForProject($_GET['name']);
+		var_dump($existingTekst);
+		$this->set('existingTekst', $existingTekst);
+
+		if(!empty($_POST['action'])) {
+			if($_POST['action'] == 'nieuwtekst') {
+				$this->_nieuwtekst();
+			} else if($_POST['action'] == 'postit') {
+				var_dump('postit');
+			} else if($_POST['action'] == 'foto') {
+				var_dump('foto');
+			} else if($_POST['action'] == 'video') {
+				var_dump('video');
+			}
+		}
+
 	}
+
+	public function _nieuwtekst() {
+
+		$insertedtekst = $this->projectDAO->inserttekst(array(
+				'nieuwtekst' => $_POST['nieuwtekst']
+			));
+
+	}
+
 
 }

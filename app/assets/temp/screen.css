@@ -168,6 +168,128 @@ body {
   bottom: 20px;
 }
 
+.uploadblock {
+  -moz-transition-property: width, height, background, margin-top;
+  -o-transition-property: width, height, background, margin-top;
+  -webkit-transition-property: width, height, background, margin-top;
+  transition-property: width, height, background, margin-top;
+  -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -moz-transition-timing-function: ease-in;
+  -o-transition-timing-function: ease-in;
+  -webkit-transition-timing-function: ease-in;
+  transition-timing-function: ease-in;
+  margin-top: -30px;
+  background: rgba(0, 0, 0, 0.6);
+  height: 100vh;
+  width: 100%;
+  z-index: 900;
+  position: fixed;
+}
+.uploadblock h1 {
+  font-family: 'verdana', sans-serif;
+  font-weight: 300;
+  text-transform: uppercase;
+  font-size: 30pt;
+  font-style: italic;
+  color: black;
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+.uploadblock .uploadwrap {
+  display: block;
+  width: 400px;
+  height: 300px;
+  position: fixed;
+  background-color: white;
+  z-index: 950;
+  -moz-border-radius: 8px / 8px;
+  -webkit-border-radius: 8px 8px;
+  border-radius: 8px / 8px;
+  left: 50% !important;
+  top: 50% !important;
+  margin: -250px 0 0 -150px;
+  -moz-transition-property: background, margin-top;
+  -o-transition-property: background, margin-top;
+  -webkit-transition-property: background, margin-top;
+  transition-property: background, margin-top;
+  -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -moz-transition-timing-function: ease-in;
+  -o-transition-timing-function: ease-in;
+  -webkit-transition-timing-function: ease-in;
+  transition-timing-function: ease-in;
+}
+.uploadblock .animform {
+  height: 400px;
+  width: 300px;
+  margin-top: -190px;
+  -moz-transition-property: background, margin-top;
+  -o-transition-property: background, margin-top;
+  -webkit-transition-property: background, margin-top;
+  transition-property: background, margin-top;
+  -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -moz-transition-timing-function: ease-in;
+  -o-transition-timing-function: ease-in;
+  -webkit-transition-timing-function: ease-in;
+  transition-timing-function: ease-in;
+}
+
+.close {
+  width: 39px;
+  height: 39px;
+  background: url("../img/close.png");
+  background-repeat: no-repeat;
+  position: absolute;
+  margin-left: 280px;
+  margin-top: -115px;
+  cursor: pointer;
+}
+
+.hidden {
+  visibility: hidden;
+  background: transparent;
+  -moz-transition-property: background;
+  -o-transition-property: background;
+  -webkit-transition-property: background;
+  transition-property: background;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -moz-transition-timing-function: ease-in;
+  -o-transition-timing-function: ease-in;
+  -webkit-transition-timing-function: ease-in;
+  transition-timing-function: ease-in;
+}
+
+#btnsubmit {
+  color: white;
+  width: 226px;
+  height: 50px;
+  background-color: #00E089;
+  border: none;
+  cursor: pointer;
+  font-size: 20pt;
+  text-transform: uppercase;
+  margin-left: 37px;
+  -moz-transition: background-color 2s ease, background 2s ease;
+  -o-transition: background-color 2s ease, background 2s ease;
+  -webkit-transition: background-color 2s ease, background 2s ease;
+  transition: background-color 2s ease, background 2s ease;
+}
+#btnsubmit:hover {
+  background-color: #00be74;
+}
+
 .createProjForm {
   position: relative;
   padding-top: 30px;
