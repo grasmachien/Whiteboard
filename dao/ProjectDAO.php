@@ -38,7 +38,7 @@ class ProjectDAO extends DAO {
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->bindValue(':project', $project);
 		$stmt->execute();
-		return $stmt->fetch(PDO::FETCH_ASSOC);
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	public function selectById($id) {
