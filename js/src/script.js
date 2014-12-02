@@ -6,6 +6,8 @@
 
 		var btn = document.querySelector('.txt');
 		var btnvid = document.querySelector('.video');
+		var btnimg = document.querySelector('.image');
+
 		if(btn) {
 			btn.addEventListener("click", function(){
 				console.log('click');
@@ -17,6 +19,9 @@
 				uploadblock.classList.remove("hidden");
 				uploadblock.classList.add("uploadblock");
 
+				var txtupload = document.querySelector('#tekstupload');
+				txtupload.classList.remove("hideform");
+
 				
 			});
 		}
@@ -25,13 +30,32 @@
 			btnvid.addEventListener("click", function(){
 				console.log('click');
 
-				var uploadblock = document.getElementById('popvideo'); 
-				var form = document.getElementById('uploadwrapvideo'); 
+				var uploadblock = document.getElementById('pop'); 
+				var form = document.getElementById('uploadwrap'); 
 				form.classList.add("animform");
 
 				uploadblock.classList.remove("hidden");
 				uploadblock.classList.add("uploadblock");
 
+				var videoupload = document.querySelector('#videoupload');
+				videoupload.classList.remove("hideform");		
+				
+			});
+		}
+
+		if(btnimg) {
+			btnimg.addEventListener("click", function(){
+				console.log('click');
+
+				var uploadblock = document.getElementById('pop'); 
+				var form = document.getElementById('uploadwrap'); 
+				form.classList.add("animform");
+
+				uploadblock.classList.remove("hidden");
+				uploadblock.classList.add("uploadblock");
+
+				var imageupload = document.querySelector('#imageupload');
+				imageupload.classList.remove("hideform");		
 				
 			});
 		}
@@ -49,12 +73,23 @@
 				form.classList.remove("animform");
 				uploadblock.classList.add("hidden");
 
+				var txtupload = document.querySelector('#tekstupload');
+				var videoupload = document.querySelector('#videoupload');
+				var imageupload = document.querySelector('#imageupload');
+
+					txtupload.classList.add("hideform");
+
+					videoupload.classList.add("hideform");
+
+					imageupload.classList.add("hideform");
+
+
 
 			});
 		}
 
 		var label = document.querySelector('#name');
-		var txtform = document.querySelector(".name")
+		var txtform = document.querySelector(".name");
 		
 		if(label) {
 			label.addEventListener("click", function(){
