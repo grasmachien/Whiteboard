@@ -8,7 +8,6 @@
 		 } ?>"></li>
 		<li><a class="txt" href="#">tekst</a></li>
 		<li><a class="video" href="#">video</a></li>
-		<li><a href="index.php">Mijn projecten</a></li>
 		<li><a href="">Meldingen</a></li>
 		<li><a class="logout" href="index.php?page=logout">Uitloggen</a></li>
 	</ul>
@@ -23,7 +22,6 @@
 		endforeach; 
 	}
 ?>
-
 <?php if (!empty($existingVideo)) {
 		
 	

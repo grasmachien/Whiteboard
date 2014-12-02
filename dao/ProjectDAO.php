@@ -48,7 +48,7 @@ class ProjectDAO extends DAO {
 			$errors['user_id'] = 'Please enter the user_id of the file';
 		}
 		if(empty($data['extension'])) {
-			$errors['extension'] = 'Please enter the user_id of the file';
+			$errors['extension'] = 'Please enter the extension of the file';
 		}
 		return $errors;
 	}
@@ -73,11 +73,12 @@ class ProjectDAO extends DAO {
     }
 
     public function newVideo($name,$video){
-            $sql = "INSERT INTO whiteboard_video(name,video)
-                    VALUES(:name,:video)";
+            $sql = "INSERT INTO whiteboard_video(name,video,project)
+                    VALUES(:name,:video,:project)";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindValue(":name",$name);
             $stmt->bindValue(":video",$video);
+            $stmt->bindValue(":project",$_GET['name']);
             if($stmt->execute()){
             }
             return false;
@@ -107,6 +108,16 @@ class ProjectDAO extends DAO {
 		$stmt->bindValue(':id', $id);
 		$stmt->execute();
 		return $stmt->fetch(PDO::FETCH_ASSOC);
+	}
+
+	public function selectByNaam($naam){
+		$sql = "SELECT *
+				FROM `whiteboard_projects`
+				WHERE (`name` LIKE :naam)";
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->bindValue(":naam", "%".$naam."%");
+		$stmt->execute();
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 

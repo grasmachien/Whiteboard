@@ -14,6 +14,10 @@ class ProjectsController extends Controller {
 
 	public function index() {
 		$this->set('projecten', $this->projectDAO->selectAllFromUser($_SESSION['user']['id']));
+		
+		if (!empty($_GET['q'])) {
+			$this->set("searchResult", $this->projectDAO->selectByNaam($_GET['q']));
+		}
 	}
 
 	public function createProject() {
