@@ -13,7 +13,8 @@ class ProjectsController extends Controller {
 	}
 
 	public function index() {
-		$this->set('projecten', $this->projectDAO->selectAllFromUser($_SESSION['user']['id']));
+		$this->set('projecten', $this->projectDAO->selectAllFromUser($_SESSION['user']['email']));
+		$this->trace($_SESSION['user']['email']);
 	}
 
 	public function createProject() {
@@ -56,6 +57,22 @@ class ProjectsController extends Controller {
 							"extension"=>$extension,
 							"user_id"=>$_SESSION['user']['id']
 						));
+
+						$invite = $this->projectDAO->insertInvite(array(
+								"project_name"=>$_POST['nieuwProjectNaam'] ,
+								"invited_user_name"=>$_SESSION['user']['email'],
+								"accepted"=>"1"
+						));
+
+						if(!empty($_POST['invited'])){
+
+							$invite = $this->projectDAO->insertInvite(array(
+								"project_name"=>$_POST['nieuwProjectNaam'] ,
+								"invited_user_name"=>$_POST['invited'],
+								"accepted"=>"1"
+							));
+						}
+
 						if (!empty($project)) {
 							$_SESSION['info'] = "Project is aangemaakt";
 							$name = $_POST['nieuwProjectNaam'];
