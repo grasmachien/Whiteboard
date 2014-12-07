@@ -19,6 +19,15 @@ class ProjectDAO extends DAO {
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	public function getUsersForProject($project) {
+		$sql = "SELECT * FROM `whiteboard_invites` WHERE `project_name` = :project_name";
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->bindValue(':project_name', $project);
+		$stmt->execute();
+
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
 	public function insert($data) {
 		$errors = $this->getValidationErrors($data);
 

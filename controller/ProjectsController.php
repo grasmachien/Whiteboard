@@ -101,24 +101,37 @@ class ProjectsController extends Controller {
 		$existingTekst = $this->projectDAO->getTekstForProject($_GET['name']);
 		$existingImg = $this->projectDAO->getImgForProject($_GET['name']);
 		$existingVideo = $this->projectDAO->getVideoForProject($_GET['name']);
+		$allUsers = $this->projectDAO->getUsersForProject($_GET['name']);
 		$this->set('existingTekst', $existingTekst);
 		$this->set('existingImg', $existingImg);
 		$this->set('existingVideo', $existingVideo);
+		$this->set('allUsers', $allUsers);
 
 		if(!empty($_POST['action'])) {
-			$this->trace($_POST);
+
 			if($_POST['action'] == 'nieuwtekst') {
 				$tekst = true;
 				$this->_nieuwtekst();
 				$this->projectDAO->getTekstForProject($_GET['name']);
 
 			} else if($_POST['action'] == 'uploadimg') {
-				$this->trace("uploadimg");
+
 				$this->_uploadimage();
 
 			} else if($_POST['action'] == 'upload') {
-				$this->trace("uploadvideo");
+
 				$this->_uploadVideo();
+
+			} else if($_POST['action'] == 'toevoegen'){
+
+				if(!empty($_POST['invited'])){
+
+					$invite = $this->projectDAO->insertInvite(array(
+						"project_name"=>$_GET['name'] ,
+						"invited_user_name"=>$_POST['invited'],
+						"accepted"=>"1"
+					));
+				}
 			}
 		}
 
@@ -149,7 +162,6 @@ class ProjectsController extends Controller {
                         move_uploaded_file($path,$newPath);
 
                         $this->projectDAO->addnew($_POST["name"],$filename);
-
 
                 	}
 
@@ -191,7 +203,7 @@ class ProjectsController extends Controller {
 				}
 			}
 			if (!empty($errors)) {
-				$_SESSION['error'] = "Nieuw project kon niet worden aangemaakt";
+				$_SESSION['error'] = "Nieuwe image kon niet worden aangemaakt";
 				$this->set("errors", $errors);
 			}
 

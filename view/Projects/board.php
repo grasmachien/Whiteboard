@@ -11,9 +11,25 @@
 		<li><a class="video" href="#">video</a></li>
 		<li><a href="index.php">Mijn projecten</a></li>
 		<li><a href="">Meldingen</a></li>
+		<li><a class="perstoev" href="#">Persoon toevoegen</a></li>
+
+		
+
+
 		<li><a class="logout" href="index.php?page=logout">Uitloggen</a></li>
 	</ul>
 </div>
+
+<?php if (!empty($allUsers)) {
+		
+	
+	 	foreach($allUsers as $user): ?>
+			<p><?php echo $user["invited_user_name"]; ?></p>
+<?php
+		endforeach; 
+	}
+?>
+
 
 <?php if (!empty($existingTekst)) {
 		
@@ -86,6 +102,16 @@
 				<label for="videofile">Video (MP4, max 10MB)</label><br/>
 				<input type="file" name="videofile" required class="addvideo">
 				<input type="submit" name="action" id="btnsubmit" value="upload"/>
+
+			</fieldset>
+		</form>
+
+		<form action="" method="post" enctype="multipart/form-data" id="persoonupload" class="hideform">
+			<fieldset>
+
+				<label for="newProjectNaam">Mensen toevoegen?</label>
+				<input type="search" name="invited" class="search" placeholder="Mensen zoeken" autocomplete="off" value=""/>
+				<input type="submit" name="action" id="btnsubmit" value="toevoegen"/>
 
 			</fieldset>
 		</form>
