@@ -85,6 +85,25 @@ class ProjectDAO extends DAO {
 		return false;
 	}
 
+	public function insertRequest($data) {
+		//$errors = $this->getValidationErrors($data);
+
+		if(empty($errors)) {
+			$sql = "INSERT INTO `whiteboard_invites` (`project_name`, `invited_user_name`,`accepted`) 
+				VALUES (:project_name, :invited_user_name, :accepted)";
+			$stmt = $this->pdo->prepare($sql);
+			$stmt->bindValue(':project_name', $data['projectnaam']);
+			$stmt->bindValue(':invited_user_name', $_SESSION['user']['email']);
+			$stmt->bindValue(':accepted', '0');
+
+			if($stmt->execute()) {
+				$insertedId = $this->pdo->lastInsertId();
+				return $this->selectById($insertedId);
+			}
+		}
+		return false;
+	}
+
 
 	public function getValidationErrors($data) {
 		$errors = array();

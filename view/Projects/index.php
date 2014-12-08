@@ -3,7 +3,6 @@
 	<ul>
 		<li><a href="index.php"> Mijn projecten</a></li>
 		<li>
-		
 			<form id="searchForm" method="get" action="index.php?action=search">
 				<input type="search" name="q" class="search" placeholder="Projecten of gebruikers zoeken" autocomplete="off" value="<?php 
 					if (!empty($_GET['q'])) {
@@ -31,6 +30,12 @@
 				<?php } ?>
 				<p><?php echo $result['name']; ?></p>
 			</li>	
+			<form action="" method="post" >
+				<fieldset>
+					<input type="hidden" name="projectnaam" value="<?php echo $result["name"]; ?>"/>
+					<input type="submit" name="action"  value="request_invite"/>
+				</fieldset>
+			</form>
 		<?php } ?> 
 
 	<?php 
@@ -44,6 +49,7 @@
 							<header><h1><?php echo $project['name']; ?></h1></header>
 						</a>
 					</li>
+					
 				<?php } 
 			}
 		}

@@ -14,7 +14,7 @@ class ProjectsController extends Controller {
 
 	public function index() {
 
-		$this->set('projecten', $this->projectDAO->selectAllFromUser($_SESSION['user']['id']));
+		$this->set('projecten', $this->projectDAO->selectAllFromUser($_SESSION['user']['email']));
 		
 		if (!empty($_GET['q'])) {
 			$this->set("searchResult", $this->projectDAO->selectByNaam($_GET['q']));
@@ -24,6 +24,12 @@ class ProjectsController extends Controller {
 		$Notifications = $this->projectDAO->getNotifications($_SESSION['user']['id']);
 		$CountedNotification = count($Notifications);
 		$this->set('CountedNotification', $CountedNotification);
+
+		if(!empty($_POST['action'])) {
+			if($_POST['action'] == 'request_invite') {
+				$this->_insertRequest();
+			} 
+		}
 	}
 
 	public function notifications() {
@@ -142,7 +148,6 @@ class ProjectsController extends Controller {
 
 		if(!empty($_POST['action'])) {
 			if($_POST['action'] == 'nieuwtekst') {
-				$tekst = true;
 				$this->_nieuwtekst();
 				$this->projectDAO->getTekstForProject($_GET['name']);
 				$this->redirect("index.php?page=board&name=" . $_GET['name']);
@@ -176,6 +181,14 @@ class ProjectsController extends Controller {
 
 		$insertedtekst = $this->projectDAO->inserttekst(array(
 			'nieuwtekst' => $_POST['nieuwtekst']
+			));
+
+	}
+
+	public function _insertRequest() {
+
+		$nieuwInvite = $this->projectDAO->insertRequest(array(
+			'projectnaam' => $_POST['projectnaam']
 			));
 
 	}

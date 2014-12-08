@@ -14,7 +14,7 @@
 	 	foreach($Notifications as $Notification): ?>
 			<p><?php echo $Notification["invited_user_name"]; ?> would like to join <?php echo $Notification["project_name"]; ?></p>
 
-			<form action="" method="post" id="notification" >
+		<form action="" method="post" id="notification" >
 			<fieldset>
 
 				<input type="hidden" name="invitedid" value="<?php echo $Notification["invite_id"]; ?>"/>
