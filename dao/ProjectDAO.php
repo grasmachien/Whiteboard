@@ -68,6 +68,21 @@ class ProjectDAO extends DAO {
 		return false;
 	}
 
+	public function insertimage($data) {
+		if(empty($errors)) {
+			$sql = "INSERT INTO `whiteboard_img` (`project`, `photo`, `extension`) VALUES (:project, :photo, :extension)";
+			$stmt = $this->pdo->prepare($sql);
+			$stmt->bindValue(':project', $data['project']);
+			$stmt->bindValue(':photo', $data["photo"]);
+			$stmt->bindValue(':extension', $data["extension"]);
+			if($stmt->execute()) {
+				
+	
+			}
+		}
+		return false;
+	}
+
 	public function addnew($name,$video){
         return $this->newVideo($name,$video);
     }
@@ -78,7 +93,7 @@ class ProjectDAO extends DAO {
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindValue(":name",$name);
             $stmt->bindValue(":video",$video);
-            $stmt->bindValue(":project",$_GET['name']);
+            $stmt->bindValue(":project",$_GET["name"]);
             if($stmt->execute()){
             }
             return false;
@@ -86,6 +101,15 @@ class ProjectDAO extends DAO {
 
 	public function getTekstForProject($project) {
 		$sql = "SELECT * FROM `whiteboard_tekst` WHERE `project` = :project";
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->bindValue(':project', $project);
+		$stmt->execute();
+
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function getImgForProject($project) {
+		$sql = "SELECT * FROM `whiteboard_img` WHERE `project` = :project";
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->bindValue(':project', $project);
 		$stmt->execute();

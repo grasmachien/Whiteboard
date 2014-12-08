@@ -1,6 +1,7 @@
 @import 'base';
 
 $screenheight: 100vh;
+$error:#FBE3E4;
 
 body {
 	background: #fafdff;
@@ -66,6 +67,7 @@ body {
 	float: left;
 	position: relative;
 	z-index: 999;
+
 
 	a {
 		color: white;
@@ -144,10 +146,10 @@ body {
 		@include transition-timing-function(ease-in);
 	}
 
-	@include transition-property(width,height,background,margin-top);
+	@include transition-property(width,height,background);
 	@include transition-duration(0.3s);
 	@include transition-timing-function(ease-in);
-	margin-top: -30px;
+	margin-top: -221px;
 	background: rgba(0,0,0, 0.6);
 	height:$screenheight;
 	width:100%;
@@ -158,7 +160,7 @@ body {
 .close{
 	width:39px;
 	height:39px;
-	background:url('../img/close.png');
+	background:url('../../img/close.png');
 	background-repeat: no-repeat;
 	position: absolute;
 	margin-left:280px;
@@ -168,6 +170,14 @@ body {
 
 .hidden{
 	visibility: hidden;
+	background: rgba(0,0,0, 0.0);
+	@include transition-property(background);
+	@include transition-duration(0.5s);
+	@include transition-timing-function(ease-in);
+}
+
+.hideform{
+	display:none;
 	background: rgba(0,0,0, 0.0);
 	@include transition-property(background);
 	@include transition-duration(0.5s);
@@ -210,3 +220,48 @@ body {
 		margin-bottom: 1em;
 	}
 }
+
+.error{
+	@include animation(shake 0.5s);
+	background-color:$error;
+}
+
+@include keyframes (shake) {
+	0%, 100% {@include transform( translateX(0));}
+	10%, 30%, 50%, 70%, 90% {@include transform(translateX(-10px));}
+	20%, 40%, 60%, 80% {@include transform(translateX(10px));}
+}
+
+.board-tekst {
+	background: #D6D9DA;
+	padding: 20px;
+	color: black;
+	width: 100%;
+}
+
+
+.dragdrop {
+	position: relative;
+	box-shadow: 0 0 25px #dedede;
+	float: left;
+	@include border-box-default;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

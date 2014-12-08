@@ -45,7 +45,7 @@ class ProjectsController extends Controller {
 					if (empty($errors)) {
 						$name = preg_replace("/\\.[^.\\s]{3,4}$/", "", $_FILES["image"]["name"]);
 						$extension = explode($name.".", $_FILES["image"]["name"])[1];
-					
+
 						$imageresize = new Eventviva\ImageResize($_FILES['image']['tmp_name']);
 						$imageresize->save(WWW_ROOT."uploads".DS.$name.".".$extension);
 
@@ -59,7 +59,7 @@ class ProjectsController extends Controller {
 							"photo"=>$name,
 							"extension"=>$extension,
 							"user_id"=>$_SESSION['user']['id']
-						));
+							));
 						if (!empty($project)) {
 							$_SESSION['info'] = "Project is aangemaakt";
 							$name = $_POST['nieuwProjectNaam'];
@@ -85,12 +85,11 @@ class ProjectsController extends Controller {
 
 	public function board() {
 
-		$video = false;
-		$tekst = false;
-
 		$existingTekst = $this->projectDAO->getTekstForProject($_GET['name']);
+		$existingImg = $this->projectDAO->getImgForProject($_GET['name']);
 		$existingVideo = $this->projectDAO->getVideoForProject($_GET['name']);
 		$this->set('existingTekst', $existingTekst);
+		$this->set('existingImg', $existingImg);
 		$this->set('existingVideo', $existingVideo);
 
 		if(!empty($_POST['action'])) {
@@ -98,51 +97,91 @@ class ProjectsController extends Controller {
 				$tekst = true;
 				$this->_nieuwtekst();
 				$this->projectDAO->getTekstForProject($_GET['name']);
-
-			} else if($_POST['action'] == 'postit') {
-				var_dump('postit');
-			} else if($_POST['action'] == 'foto') {
-				var_dump('foto');
+				$this->redirect("index.php?page=board&name=" . $_GET['name']);
+			} else if($_POST['action'] == 'uploadimg') {
+				$this->_uploadimage();
+				$this->redirect("index.php?page=board&name=" . $_GET['name']);
 			} else if($_POST['action'] == 'upload') {
 				$this->_uploadVideo();
+				$this->redirect("index.php?page=board&name=" . $_GET['name']);
 			}
 		}
 
-		$this->set('video', $video);
-		$this->set('tekst', $tekst);
 
 	}
 
 	public function _nieuwtekst() {
 
 		$insertedtekst = $this->projectDAO->inserttekst(array(
-				'nieuwtekst' => $_POST['nieuwtekst']
+			'nieuwtekst' => $_POST['nieuwtekst']
 			));
 
 	}
 
 	public function _uploadVideo(){
 		if(!empty($_POST["name"])
-                    && !empty($_FILES["videofile"])){
+			&& !empty($_FILES["videofile"])){
 
-                    $type = ($_FILES["videofile"]["type"]);
-               		$path = $_FILES["videofile"]["tmp_name"];
-                    $size = filesize($path);
+			$type = ($_FILES["videofile"]["type"]);
+		$path = $_FILES["videofile"]["tmp_name"];
+		$size = filesize($path);
 
-                    if($type == "video/mp4" && $size <=10000000){
+		if($type == "video/mp4" && $size <=10000000){
 
-                        $filename = $_POST["name"].".mp4";
-                        $newPath = WWW_ROOT.'uploads'.DS.$filename;
+			$filename = $_POST["name"].".mp4";
+			$newPath = WWW_ROOT.'uploads'.DS.$filename;
 
-                        move_uploaded_file($path,$newPath);
+			move_uploaded_file($path,$newPath);
 
-                        $this->projectDAO->addnew($_POST["name"],$filename);
+			$this->projectDAO->addnew($_POST["name"],$filename);
 
 
-                	}
+		}
 
-                }
 	}
+}
+
+public function _uploadimage(){
+
+	if (!empty($_FILES['image'])) {
+
+		if (!empty($_FILES['image']['error'])) {
+			$errors['image'] = "Profielfoto kon niet worden toegevoegd";
+		}
+
+		if (empty($errors['image'])) {
+			$size = getimagesize($_FILES['image']['tmp_name']);
+			if (empty($size)) {
+				$errors['image'] = "Profielfoto kon niet worden toegevoegd";
+			}
+		}
+		if (empty($errors)) {
+			$name = preg_replace("/\\.[^.\\s]{3,4}$/", "", $_FILES["image"]["name"]);
+			$extension = explode($name.".", $_FILES["image"]["name"])[1];
+
+			$imageresize = new Eventviva\ImageResize($_FILES['image']['tmp_name']);
+			$imageresize->save(WWW_ROOT."uploads/images".DS.$name.".".$extension);
+
+					// $imageresize->resizeToHeight(200);
+					// $imageresize->save(WWW_ROOT."uploads".DS.$name."_th.".$extension);
+
+
+			move_uploaded_file($_FILES['image']["tmp_name"], WWW_ROOT."uploads/images".DS.$_FILES["image"]["name"]);
+			$image = $this->projectDAO->insertimage(array(
+				"project"=>$_GET['name'] ,
+				"photo"=>$name,
+				"extension"=>$extension
+				));
+
+		}
+	}
+	if (!empty($errors)) {
+		$_SESSION['error'] = "Nieuw project kon niet worden aangemaakt";
+		$this->set("errors", $errors);
+	}
+
+
+}
 
 
 }
