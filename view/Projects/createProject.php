@@ -27,16 +27,11 @@
 	        <span class="error-message"<?php if(empty($errors['image'])) echo 'style="display: none;"';?>>
 	        <?php if(!empty($errors['image'])) echo '<span class="error-message">' . $errors['image'] . '</span>'; ?>
 		</div>
-		<div>
-			<label for="newProjectNaam">Verschillende issue statussen?</label>
-			<input type="checkbox" name="projectStatussen" id="projectStatussen" value="<?php if (!empty($_POST['projectStatussen'])) echo $_POST['projectStatussen']; ?>">
-			<p>(Dit ongecheckt laten geeft je gewoon een whiteboard, dit checken geeft je een volledig processbord.)</p>
-		</div>
 		
-		<!-- <div>
+		<div>
 			<label for="newProjectNaam">Mensen toevoegen?</label>
-				<input type="search" name="q" class="search" placeholder="Mensen zoeken" autocomplete="off" value="<?php if (!empty($_GET['q'])) echo $_GET['q']; ?>">
-		</div> --> 
+				<input type="search" name="invited" class="search" placeholder="Mensen zoeken" autocomplete="off" value=""/>
+		</div> 
 
 
 		<input type="submit" name="action" value="Aanmaken">

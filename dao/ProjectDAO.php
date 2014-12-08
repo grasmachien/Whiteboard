@@ -5,14 +5,28 @@ require_once WWW_ROOT . 'dao' . DS . 'DAO.php';
 class ProjectDAO extends DAO {
 
 
-	public function selectAllFromUser($user_id){
-		$sql = "SELECT * FROM `whiteboard_projects` WHERE `user_id` = :user_id";
+	public function selectAllFromUser($user_email){
+		$sql = "SELECT *, whiteboard_projects.photo, whiteboard_projects.name
+				FROM whiteboard_invites
+				LEFT JOIN whiteboard_projects
+				ON whiteboard_projects.name = whiteboard_invites.project_name
+				WHERE accepted = :accepted
+				AND whiteboard_invites.invited_user_name = :user_email";
 		$stmt = $this->pdo->prepare($sql);
-		$stmt->bindValue(':user_id', $user_id);
+		$stmt->bindValue(':user_email', $user_email);
+		$stmt->bindValue(':accepted', '1');
 		$stmt->execute();
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	public function getUsersForProject($project) {
+		$sql = "SELECT * FROM `whiteboard_invites` WHERE `project_name` = :project_name";
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->bindValue(':project_name', $project);
+		$stmt->execute();
+
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
 
 	public function insert($data) {
 		$errors = $this->getValidationErrors($data);
@@ -26,6 +40,25 @@ class ProjectDAO extends DAO {
 			$stmt->bindValue(':user_id', $data['user_id']);
 			$stmt->bindValue(':extension', $data['extension']);
 			
+
+			if($stmt->execute()) {
+				$insertedId = $this->pdo->lastInsertId();
+				return $this->selectById($insertedId);
+			}
+		}
+		return false;
+	}
+
+	public function insertInvite($data) {
+		//$errors = $this->getValidationErrors($data);
+
+		if(empty($errors)) {
+			$sql = "INSERT INTO `whiteboard_invites` (`project_name`, `invited_user_name`,`accepted`) 
+				VALUES (:project_name, :invited_user_name, :accepted)";
+			$stmt = $this->pdo->prepare($sql);
+			$stmt->bindValue(':project_name', $data['project_name']);
+			$stmt->bindValue(':invited_user_name', $data['invited_user_name']);
+			$stmt->bindValue(':accepted', $data['accepted']);
 
 			if($stmt->execute()) {
 				$insertedId = $this->pdo->lastInsertId();

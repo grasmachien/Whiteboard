@@ -8,6 +8,7 @@
 		var btn = document.querySelector('.txt');
 		var btnvid = document.querySelector('.video');
 		var btnimg = document.querySelector('.image');
+		var btnprs = document.querySelector('.perstoev');
 
 		if(btn) {
 			btn.addEventListener("click", function(){
@@ -61,6 +62,23 @@
 			});
 		}
 
+		if(btnprs) {
+			btnprs.addEventListener("click", function(){
+				console.log('click');
+
+				var uploadblock = document.getElementById('pop'); 
+				var form = document.getElementById('uploadwrap'); 
+				form.classList.add("animform");
+
+				uploadblock.classList.remove("hidden");
+				uploadblock.classList.add("uploadblock");
+
+				var persoonupload = document.querySelector('#persoonupload');
+				persoonupload.classList.remove("hideform");		
+				
+			});
+		}
+
 		var close = document.querySelector('.close');
 		if(close) {
 			close.addEventListener("click", function(){
@@ -77,12 +95,12 @@
 				var txtupload = document.querySelector('#tekstupload');
 				var videoupload = document.querySelector('#videoupload');
 				var imageupload = document.querySelector('#imageupload');
+				var persoonupload = document.querySelector('#persoonupload');
 
 					txtupload.classList.add("hideform");
-
 					videoupload.classList.add("hideform");
-
 					imageupload.classList.add("hideform");
+					persoonupload.classList.add("hideform");
 
 
 
