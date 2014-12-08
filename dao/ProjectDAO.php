@@ -4,6 +4,7 @@ require_once WWW_ROOT . 'dao' . DS . 'DAO.php';
 
 class ProjectDAO extends DAO {
 
+	
 
 	public function selectAllFromUser($user_email){
 		$sql = "SELECT *, whiteboard_projects.photo, whiteboard_projects.name
@@ -19,10 +20,26 @@ class ProjectDAO extends DAO {
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	public function getNotifications($user_id) {
+		$sql = "SELECT *, whiteboard_projects.photo, whiteboard_projects.name
+				FROM whiteboard_invites
+				LEFT JOIN whiteboard_projects
+				ON whiteboard_projects.name = whiteboard_invites.project_name
+				WHERE accepted = :accepted
+				AND whiteboard_projects.user_id = :user_id";
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->bindValue(':user_id', $user_id);
+		$stmt->bindValue(':accepted','0');
+		$stmt->execute();
+
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
 	public function getUsersForProject($project) {
-		$sql = "SELECT * FROM `whiteboard_invites` WHERE `project_name` = :project_name";
+		$sql = "SELECT * FROM `whiteboard_invites` WHERE `project_name` = :project_name AND accepted = :accepted";
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->bindValue(':project_name', $project);
+		$stmt->bindValue(':accepted', '1');
 		$stmt->execute();
 
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -59,6 +76,25 @@ class ProjectDAO extends DAO {
 			$stmt->bindValue(':project_name', $data['project_name']);
 			$stmt->bindValue(':invited_user_name', $data['invited_user_name']);
 			$stmt->bindValue(':accepted', $data['accepted']);
+
+			if($stmt->execute()) {
+				$insertedId = $this->pdo->lastInsertId();
+				return $this->selectById($insertedId);
+			}
+		}
+		return false;
+	}
+
+	public function insertRequest($data) {
+		//$errors = $this->getValidationErrors($data);
+
+		if(empty($errors)) {
+			$sql = "INSERT INTO `whiteboard_invites` (`project_name`, `invited_user_name`,`accepted`) 
+				VALUES (:project_name, :invited_user_name, :accepted)";
+			$stmt = $this->pdo->prepare($sql);
+			$stmt->bindValue(':project_name', $data['projectnaam']);
+			$stmt->bindValue(':invited_user_name', $_SESSION['user']['email']);
+			$stmt->bindValue(':accepted', '0');
 
 			if($stmt->execute()) {
 				$insertedId = $this->pdo->lastInsertId();
@@ -159,13 +195,39 @@ class ProjectDAO extends DAO {
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
-	public function selectById($id) {
+	public function selectById($id){
 		$sql = "SELECT * FROM `whiteboard_projects` WHERE `id` = :id";
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->bindValue(':id', $id);
 		$stmt->execute();
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 	}
+
+	public function deleteInvite($id){
+
+        $sql = "DELETE FROM `whiteboard_invites`
+                WHERE invite_id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':id', $id);
+        if($stmt->execute()){
+            return true;
+        }
+        return false;
+    }
+
+     public function updateInvite($id){
+
+        $sql = 'UPDATE whiteboard_invites
+                    SET accepted = :accepted
+                    WHERE invite_id=:id';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':id', $id);
+        $stmt->bindValue(':accepted', '1');
+        if($stmt->execute()){
+            return $this->getNotifications($_SESSION['user']['id']);
+        }
+        return array();
+    }
 
 	public function selectByNaam($naam){
 		$sql = "SELECT *

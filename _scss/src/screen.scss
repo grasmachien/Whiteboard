@@ -90,6 +90,13 @@ body {
 
 	li {
 		padding: 15px 0 15px 0;
+
+		span{
+			background:red;
+			color:white;
+			@include border-radius(60px, 60px);
+			padding:5px;
+		}
 		
 		&:hover {
 			background-color: #272822;

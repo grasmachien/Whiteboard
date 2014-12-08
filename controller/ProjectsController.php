@@ -14,13 +14,42 @@ class ProjectsController extends Controller {
 
 	public function index() {
 
-		$this->set('projecten', $this->projectDAO->selectAllFromUser($_SESSION['user']['id']));
+		$this->set('projecten', $this->projectDAO->selectAllFromUser($_SESSION['user']['email']));
 		
 		if (!empty($_GET['q'])) {
 			$this->set("searchResult", $this->projectDAO->selectByNaam($_GET['q']));
 		}
 
 		$this->trace($_SESSION['user']['email']);
+		$Notifications = $this->projectDAO->getNotifications($_SESSION['user']['id']);
+		$CountedNotification = count($Notifications);
+		$this->set('CountedNotification', $CountedNotification);
+
+		if(!empty($_POST['action'])) {
+			if($_POST['action'] == 'request_invite') {
+				$this->_insertRequest();
+			} 
+		}
+	}
+
+	public function notifications() {
+		$Notifications = $this->projectDAO->getNotifications($_SESSION['user']['id']);
+		$this->set('Notifications', $Notifications);
+		$CountedNotification = count($Notifications);
+		$this->set('CountedNotification', $CountedNotification);
+
+		if(!empty($_POST['action'])) {
+
+			if($_POST['action'] == 'toestaan') {
+				
+				$this->projectDAO->updateInvite($_POST['invitedid']);
+
+			} else if($_POST['action'] == 'verwijderen') {
+
+				$this->projectDAO->deleteInvite($_POST['invitedid']);
+
+			}
+		}
 	}
 
 	public function createProject() {
@@ -104,6 +133,10 @@ class ProjectsController extends Controller {
 
 	public function board() {
 
+		$Notifications = $this->projectDAO->getNotifications($_SESSION['user']['id']);
+		$CountedNotification = count($Notifications);
+		$this->set('CountedNotification', $CountedNotification);
+
 		$existingTekst = $this->projectDAO->getTekstForProject($_GET['name']);
 		$existingImg = $this->projectDAO->getImgForProject($_GET['name']);
 		$existingVideo = $this->projectDAO->getVideoForProject($_GET['name']);
@@ -115,7 +148,6 @@ class ProjectsController extends Controller {
 
 		if(!empty($_POST['action'])) {
 			if($_POST['action'] == 'nieuwtekst') {
-				$tekst = true;
 				$this->_nieuwtekst();
 				$this->projectDAO->getTekstForProject($_GET['name']);
 				$this->redirect("index.php?page=board&name=" . $_GET['name']);
@@ -153,26 +185,35 @@ class ProjectsController extends Controller {
 
 	}
 
+	public function _insertRequest() {
+
+		$nieuwInvite = $this->projectDAO->insertRequest(array(
+			'projectnaam' => $_POST['projectnaam']
+			));
+
+	}
+
 	public function _uploadVideo(){
 		if(!empty($_POST["name"])
 			&& !empty($_FILES["videofile"])){
 
 			$type = ($_FILES["videofile"]["type"]);
-		$path = $_FILES["videofile"]["tmp_name"];
-		$size = filesize($path);
+			$path = $_FILES["videofile"]["tmp_name"];
+			$size = filesize($path);
 
-		if($type == "video/mp4" && $size <=10000000){
+			if($type == "video/mp4" && $size <=10000000){
 
-			$filename = $_POST["name"].".mp4";
-			$newPath = WWW_ROOT.'uploads'.DS.$filename;
+				$filename = $_POST["name"].".mp4";
+				$newPath = WWW_ROOT.'uploads'.DS.$filename;
 
-			move_uploaded_file($path,$newPath);
+				move_uploaded_file($path,$newPath);
 
-			$this->projectDAO->addnew($_POST["name"],$filename);
-	}
+				$this->projectDAO->addnew($_POST["name"],$filename);
+			}
+		}
 }
 
-}
+
 
 public function _uploadimage(){
 

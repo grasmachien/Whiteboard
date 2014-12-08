@@ -28,6 +28,10 @@ $routes = array(
         'controller' => 'Projects',
         'action' => 'board'
     ),
+    'notifications' => array(
+        'controller' => 'Projects',
+        'action' => 'notifications'
+    ),
 );
 
 if(empty($_GET['page'])) {
