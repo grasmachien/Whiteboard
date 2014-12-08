@@ -185,18 +185,19 @@ class ProjectsController extends Controller {
 			&& !empty($_FILES["videofile"])){
 
 			$type = ($_FILES["videofile"]["type"]);
-		$path = $_FILES["videofile"]["tmp_name"];
-		$size = filesize($path);
+			$path = $_FILES["videofile"]["tmp_name"];
+			$size = filesize($path);
 
-		if($type == "video/mp4" && $size <=10000000){
+			if($type == "video/mp4" && $size <=10000000){
 
-			$filename = $_POST["name"].".mp4";
-			$newPath = WWW_ROOT.'uploads'.DS.$filename;
+				$filename = $_POST["name"].".mp4";
+				$newPath = WWW_ROOT.'uploads'.DS.$filename;
 
-			move_uploaded_file($path,$newPath);
+				move_uploaded_file($path,$newPath);
 
-			$this->projectDAO->addnew($_POST["name"],$filename);
-	}
+				$this->projectDAO->addnew($_POST["name"],$filename);
+			}
+		}
 }
 
 public function _uploadimage(){

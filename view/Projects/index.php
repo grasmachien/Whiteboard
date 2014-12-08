@@ -12,12 +12,9 @@
 			</form>
 		</li>
 		<li><a href="index.php?page=createProject">Nieuw project</a></li>
-<<<<<<< HEAD
+
 		<li><a href="">Mijn projecten</a></li>
 		<li><a href="index.php?page=notifications">Meldingen <span><?php echo $CountedNotification; ?></span></a></li>
-=======
-		<li><a href="">Meldingen</a></li>
->>>>>>> c37c5e1c8015482d444747c616e590f54c67cc52
 		<li><a class="logout" href="index.php?page=logout">Uitloggen</a></li>
 	</ul>
 </div>
