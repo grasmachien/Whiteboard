@@ -8,7 +8,7 @@
 		 } ?>"></li>
 		<li><a href="index.php?page=createProject">Nieuw project</a></li>
 		<li><a href="">Mijn projecten</a></li>
-		<li><a href="">Meldingen</a></li>
+		<li><a href="index.php?page=notifications">Meldingen <span><?php echo $CountedNotification; ?></span></a></li>
 		<li><a class="logout" href="index.php?page=logout">Uitloggen</a></li>
 	</ul>
 </div>

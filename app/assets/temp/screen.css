@@ -156,6 +156,14 @@ body {
 .sidebar li {
   padding: 15px 0 15px 0;
 }
+.sidebar li span {
+  background: red;
+  color: white;
+  -moz-border-radius: 60px / 60px;
+  -webkit-border-radius: 60px 60px;
+  border-radius: 60px / 60px;
+  padding: 5px;
+}
 .sidebar li:hover {
   background-color: #272822;
 }

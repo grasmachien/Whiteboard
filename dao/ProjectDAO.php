@@ -4,6 +4,7 @@ require_once WWW_ROOT . 'dao' . DS . 'DAO.php';
 
 class ProjectDAO extends DAO {
 
+	
 
 	public function selectAllFromUser($user_email){
 		$sql = "SELECT *, whiteboard_projects.photo, whiteboard_projects.name
@@ -19,10 +20,26 @@ class ProjectDAO extends DAO {
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	public function getNotifications($user_id) {
+		$sql = "SELECT *, whiteboard_projects.photo, whiteboard_projects.name
+				FROM whiteboard_invites
+				LEFT JOIN whiteboard_projects
+				ON whiteboard_projects.name = whiteboard_invites.project_name
+				WHERE accepted = :accepted
+				AND whiteboard_projects.user_id = :user_id";
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->bindValue(':user_id', $user_id);
+		$stmt->bindValue(':accepted','0');
+		$stmt->execute();
+
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
 	public function getUsersForProject($project) {
-		$sql = "SELECT * FROM `whiteboard_invites` WHERE `project_name` = :project_name";
+		$sql = "SELECT * FROM `whiteboard_invites` WHERE `project_name` = :project_name AND accepted = :accepted";
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->bindValue(':project_name', $project);
+		$stmt->bindValue(':accepted', '1');
 		$stmt->execute();
 
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -166,6 +183,34 @@ class ProjectDAO extends DAO {
 		$stmt->execute();
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 	}
+
+	public function deleteInvite($id){
+
+        $sql = "DELETE FROM `whiteboard_invites`
+                WHERE invite_id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':id', $id);
+        if($stmt->execute()){
+            return true;
+        }
+        return false;
+
+    }
+
+     public function updateInvite($id)
+    {
+        $sql = 'UPDATE whiteboard_invites
+                    SET accepted = :accepted
+                    WHERE invite_id=:id';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':id', $id);
+        $stmt->bindValue(':accepted', '1');
+        if($stmt->execute())
+        {
+            return $this->getNotifications($_SESSION['user']['id']);
+        }
+        return array();
+    }
 
 
 }

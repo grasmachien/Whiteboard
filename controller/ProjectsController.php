@@ -15,6 +15,29 @@ class ProjectsController extends Controller {
 	public function index() {
 		$this->set('projecten', $this->projectDAO->selectAllFromUser($_SESSION['user']['email']));
 		$this->trace($_SESSION['user']['email']);
+		$Notifications = $this->projectDAO->getNotifications($_SESSION['user']['id']);
+		$CountedNotification = count($Notifications);
+		$this->set('CountedNotification', $CountedNotification);
+	}
+
+	public function notifications() {
+		$Notifications = $this->projectDAO->getNotifications($_SESSION['user']['id']);
+		$this->set('Notifications', $Notifications);
+		$CountedNotification = count($Notifications);
+		$this->set('CountedNotification', $CountedNotification);
+
+		if(!empty($_POST['action'])) {
+
+			if($_POST['action'] == 'toestaan') {
+				
+				$this->projectDAO->updateInvite($_POST['invitedid']);
+
+			} else if($_POST['action'] == 'verwijderen') {
+
+				$this->projectDAO->deleteInvite($_POST['invitedid']);
+
+			}
+		}
 	}
 
 	public function createProject() {
@@ -97,6 +120,10 @@ class ProjectsController extends Controller {
 
 
 	public function board() {
+
+		$Notifications = $this->projectDAO->getNotifications($_SESSION['user']['id']);
+		$CountedNotification = count($Notifications);
+		$this->set('CountedNotification', $CountedNotification);
 
 		$existingTekst = $this->projectDAO->getTekstForProject($_GET['name']);
 		$existingImg = $this->projectDAO->getImgForProject($_GET['name']);

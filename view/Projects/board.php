@@ -10,7 +10,7 @@
 		<li><a class="image" href="#">afbeelding</a></li>
 		<li><a class="video" href="#">video</a></li>
 		<li><a href="index.php">Mijn projecten</a></li>
-		<li><a href="">Meldingen</a></li>
+		<li><a href="index.php?page=notifications">Meldingen <span><?php echo $CountedNotification; ?></span></a></li>
 		<li><a class="perstoev" href="#">Persoon toevoegen</a></li>
 
 		
