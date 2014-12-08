@@ -13,7 +13,13 @@ class ProjectsController extends Controller {
 	}
 
 	public function index() {
-		$this->set('projecten', $this->projectDAO->selectAllFromUser($_SESSION['user']['email']));
+
+		$this->set('projecten', $this->projectDAO->selectAllFromUser($_SESSION['user']['id']));
+		
+		if (!empty($_GET['q'])) {
+			$this->set("searchResult", $this->projectDAO->selectByNaam($_GET['q']));
+		}
+
 		$this->trace($_SESSION['user']['email']);
 		$Notifications = $this->projectDAO->getNotifications($_SESSION['user']['id']);
 		$CountedNotification = count($Notifications);
@@ -65,7 +71,7 @@ class ProjectsController extends Controller {
 					if (empty($errors)) {
 						$name = preg_replace("/\\.[^.\\s]{3,4}$/", "", $_FILES["image"]["name"]);
 						$extension = explode($name.".", $_FILES["image"]["name"])[1];
-					
+
 						$imageresize = new Eventviva\ImageResize($_FILES['image']['tmp_name']);
 						$imageresize->save(WWW_ROOT."uploads".DS.$name.".".$extension);
 
@@ -135,19 +141,19 @@ class ProjectsController extends Controller {
 		$this->set('allUsers', $allUsers);
 
 		if(!empty($_POST['action'])) {
-
 			if($_POST['action'] == 'nieuwtekst') {
 				$tekst = true;
 				$this->_nieuwtekst();
 				$this->projectDAO->getTekstForProject($_GET['name']);
-
+				$this->redirect("index.php?page=board&name=" . $_GET['name']);
 			} else if($_POST['action'] == 'uploadimg') {
 
 				$this->_uploadimage();
-
+				$this->redirect("index.php?page=board&name=" . $_GET['name']);
 			} else if($_POST['action'] == 'upload') {
 
 				$this->_uploadVideo();
+				$this->redirect("index.php?page=board&name=" . $_GET['name']);
 
 			} else if($_POST['action'] == 'toevoegen'){
 
@@ -159,6 +165,7 @@ class ProjectsController extends Controller {
 						"accepted"=>"1"
 					));
 				}
+
 			}
 		}
 
@@ -168,56 +175,54 @@ class ProjectsController extends Controller {
 	public function _nieuwtekst() {
 
 		$insertedtekst = $this->projectDAO->inserttekst(array(
-				'nieuwtekst' => $_POST['nieuwtekst']
+			'nieuwtekst' => $_POST['nieuwtekst']
 			));
 
 	}
 
 	public function _uploadVideo(){
 		if(!empty($_POST["name"])
-                    && !empty($_FILES["videofile"])){
+			&& !empty($_FILES["videofile"])){
 
-                    $type = ($_FILES["videofile"]["type"]);
-               		$path = $_FILES["videofile"]["tmp_name"];
-                    $size = filesize($path);
+			$type = ($_FILES["videofile"]["type"]);
+		$path = $_FILES["videofile"]["tmp_name"];
+		$size = filesize($path);
 
-                    if($type == "video/mp4" && $size <=10000000){
+		if($type == "video/mp4" && $size <=10000000){
 
-                        $filename = $_POST["name"].".mp4";
-                        $newPath = WWW_ROOT.'uploads'.DS.$filename;
+			$filename = $_POST["name"].".mp4";
+			$newPath = WWW_ROOT.'uploads'.DS.$filename;
 
-                        move_uploaded_file($path,$newPath);
+			move_uploaded_file($path,$newPath);
 
-                        $this->projectDAO->addnew($_POST["name"],$filename);
-
-                	}
-
-                }
+			$this->projectDAO->addnew($_POST["name"],$filename);
 	}
+}
 
-	public function _uploadimage(){
+public function _uploadimage(){
 
-		if (!empty($_FILES['image'])) {
-				
-				if (!empty($_FILES['image']['error'])) {
-					$errors['image'] = "Profielfoto kon niet worden toegevoegd";
-				}
+	if (!empty($_FILES['image'])) {
 
-				if (empty($errors['image'])) {
-					$size = getimagesize($_FILES['image']['tmp_name']);
-					if (empty($size)) {
-						$errors['image'] = "Profielfoto kon niet worden toegevoegd";
-					}
-				}
-				if (empty($errors)) {
-					$name = preg_replace("/\\.[^.\\s]{3,4}$/", "", $_FILES["image"]["name"]);
-					$extension = explode($name.".", $_FILES["image"]["name"])[1];
-				
-					$imageresize = new Eventviva\ImageResize($_FILES['image']['tmp_name']);
-					$imageresize->save(WWW_ROOT."uploads/images".DS.$name.".".$extension);
+		if (!empty($_FILES['image']['error'])) {
+			$errors['image'] = "Profielfoto kon niet worden toegevoegd";
+		}
+
+		if (empty($errors['image'])) {
+			$size = getimagesize($_FILES['image']['tmp_name']);
+			if (empty($size)) {
+				$errors['image'] = "Profielfoto kon niet worden toegevoegd";
+			}
+		}
+		if (empty($errors)) {
+			$name = preg_replace("/\\.[^.\\s]{3,4}$/", "", $_FILES["image"]["name"]);
+			$extension = explode($name.".", $_FILES["image"]["name"])[1];
+
+			$imageresize = new Eventviva\ImageResize($_FILES['image']['tmp_name']);
+			$imageresize->save(WWW_ROOT."uploads/images".DS.$name.".".$extension);
 
 					// $imageresize->resizeToHeight(200);
 					// $imageresize->save(WWW_ROOT."uploads".DS.$name."_th.".$extension);
+
 
 
 					move_uploaded_file($_FILES['image']["tmp_name"], WWW_ROOT."uploads/images".DS.$_FILES["image"]["name"]);
@@ -234,8 +239,7 @@ class ProjectsController extends Controller {
 				$this->set("errors", $errors);
 			}
 
-
-	}
+		}
 
 
 }

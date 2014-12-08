@@ -98,7 +98,7 @@ class ProjectDAO extends DAO {
 			$errors['user_id'] = 'Please enter the user_id of the file';
 		}
 		if(empty($data['extension'])) {
-			$errors['extension'] = 'Please enter the user_id of the file';
+			$errors['extension'] = 'Please enter the extension of the file';
 		}
 		return $errors;
 	}
@@ -176,7 +176,7 @@ class ProjectDAO extends DAO {
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
-	public function selectById($id) {
+	public function selectById($id){
 		$sql = "SELECT * FROM `whiteboard_projects` WHERE `id` = :id";
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->bindValue(':id', $id);
@@ -194,23 +194,31 @@ class ProjectDAO extends DAO {
             return true;
         }
         return false;
-
     }
 
-     public function updateInvite($id)
-    {
+     public function updateInvite($id){
+
         $sql = 'UPDATE whiteboard_invites
                     SET accepted = :accepted
                     WHERE invite_id=:id';
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->bindValue(':accepted', '1');
-        if($stmt->execute())
-        {
+        if($stmt->execute()){
             return $this->getNotifications($_SESSION['user']['id']);
         }
         return array();
     }
+
+	public function selectByNaam($naam){
+		$sql = "SELECT *
+				FROM `whiteboard_projects`
+				WHERE (`name` LIKE :naam)";
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->bindValue(":naam", "%".$naam."%");
+		$stmt->execute();
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
 
 
 }

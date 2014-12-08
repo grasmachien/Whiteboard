@@ -2,20 +2,43 @@
 	<header><a href="index.php"><h1>Whiteboard</h1></a></header>
 	<ul>
 		<li><a href="index.php"> Mijn projecten</a></li>
-		<li><input type="search" name="q" class="search" placeholder="Projecten zoeken" autocomplete="off" value="<?php 
-		if (!empty($_GET['q'])) {
-		 	echo $_GET['q'];
-		 } ?>"></li>
+		<li>
+		
+			<form id="searchForm" method="get" action="index.php?action=search">
+				<input type="search" name="q" class="search" placeholder="Projecten of gebruikers zoeken" autocomplete="off" value="<?php 
+					if (!empty($_GET['q'])) {
+				 		echo $_GET['q'];
+				 	} ?>">
+			</form>
+		</li>
 		<li><a href="index.php?page=createProject">Nieuw project</a></li>
+<<<<<<< HEAD
 		<li><a href="">Mijn projecten</a></li>
 		<li><a href="index.php?page=notifications">Meldingen <span><?php echo $CountedNotification; ?></span></a></li>
+=======
+		<li><a href="">Meldingen</a></li>
+>>>>>>> c37c5e1c8015482d444747c616e590f54c67cc52
 		<li><a class="logout" href="index.php?page=logout">Uitloggen</a></li>
 	</ul>
 </div>
 
 <div class="projecten-overzicht">
 	<ul class="projecten-overzicht">
-		<?php 
+	<?php if (!empty($searchResult)) { 
+		foreach ($searchResult as $result) { ?>
+			<li class="searchResult">
+				<?php if (!empty($result['photo'])) { ?>
+					<img src="uploads/<?php echo $result['photo']. "_th." . $result['extension']; ?>" alt="<?php echo $result['name']; ?>">
+				<?php } else { ?>
+					<img src="uploads/nopic.jpg" alt="geen foto">
+				<?php } ?>
+				<p><?php echo $result['name']; ?></p>
+			</li>	
+		<?php } ?> 
+
+	<?php 
+
+		} else { 
 			if (!empty($projecten)) {
 				foreach ($projecten as $project) { ?>
 					<li class="project-th">
@@ -26,6 +49,7 @@
 					</li>
 				<?php } 
 			}
+		}
 		?>
 	</ul>
 </div>

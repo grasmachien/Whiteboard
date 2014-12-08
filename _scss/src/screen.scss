@@ -68,6 +68,7 @@ body {
 	position: relative;
 	z-index: 999;
 
+
 	a {
 		color: white;
 		text-decoration: none;
@@ -237,3 +238,37 @@ body {
 	10%, 30%, 50%, 70%, 90% {@include transform(translateX(-10px));}
 	20%, 40%, 60%, 80% {@include transform(translateX(10px));}
 }
+
+.board-tekst {
+	background: #D6D9DA;
+	padding: 20px;
+	color: black;
+	width: 100%;
+}
+
+
+.dragdrop {
+	position: relative;
+	box-shadow: 0 0 25px #dedede;
+	float: left;
+	@include border-box-default;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

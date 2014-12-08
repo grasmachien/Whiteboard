@@ -1,8 +1,8 @@
 (function(){
 
-	var App = require('./classes/App');
+	var Dragdrop = require('./classes/Dragdrop');
 	function init() {
-		new App();
+		new Dragdrop();
 
 		var btn = document.querySelector('.txt');
 		var btnvid = document.querySelector('.video');
