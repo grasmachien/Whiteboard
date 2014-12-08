@@ -19,6 +19,7 @@
 
 <div class="projecten-overzicht">
 	<ul class="projecten-overzicht">
+	
 	<?php if (!empty($searchResult)) { 
 		foreach ($searchResult as $result) { ?>
 			<li class="searchResult">

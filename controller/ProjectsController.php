@@ -172,6 +172,8 @@ class ProjectsController extends Controller {
 	}
 }
 
+}
+
 public function _uploadimage(){
 
 	if (!empty($_FILES['image'])) {
