@@ -47,7 +47,7 @@
 		
 	
 	 	foreach($existingVideo as $video): ?>
-		<div class="dragdrop">
+		<div class="dragdrop" style="left:<?php echo $video['x'];?>px; top:<?php echo $video['y'];?>px">
 				<video width="400" height="220" controls=true>
 					<source src="uploads/<?php echo $video['video']; ?>" type="video/mp4">
 				</video>
@@ -61,7 +61,7 @@
 		
 	
 	 	foreach($existingImg as $img): ?>
-			<div class="dragdrop">
+			<div class="dragdrop" style="left:<?php echo $img['x'];?>px; top:<?php echo $img['y'];?>px">
 				<img src="uploads/images/<?php echo $img['photo'] .".". $img['extension']; ?>" class="dragable" alt="">
 			</div>
 <?php

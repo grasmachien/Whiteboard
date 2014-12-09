@@ -68,6 +68,8 @@ body {
 	position: relative;
 	z-index: 999;
 
+	// display: none;
+
 
 	a {
 		color: white;
@@ -248,9 +250,8 @@ body {
 
 
 .dragdrop {
-	position: relative;
-	box-shadow: 0 0 25px #dedede;
-	float: left;
+	position: absolute;
+	// box-shadow: 0 0 25px #060606;
 	@include border-box-default;
 
 }
@@ -261,7 +262,6 @@ body {
 	background-color: yellow;
 	position: absolute;
 	left: 400px;
-	z-index: 999;
 }
 
 

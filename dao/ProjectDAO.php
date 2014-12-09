@@ -139,11 +139,13 @@ class ProjectDAO extends DAO {
 
 	public function insertimage($data) {
 		if(empty($errors)) {
-			$sql = "INSERT INTO `whiteboard_img` (`project`, `photo`, `extension`) VALUES (:project, :photo, :extension)";
+			$sql = "INSERT INTO `whiteboard_img` (`project`, `photo`, `extension`, `x`, `y`) VALUES (:project, :photo, :extension, :x, :y)";
 			$stmt = $this->pdo->prepare($sql);
 			$stmt->bindValue(':project', $data['project']);
 			$stmt->bindValue(':photo', $data["photo"]);
 			$stmt->bindValue(':extension', $data["extension"]);
+      $stmt->bindValue(":x","200");
+      $stmt->bindValue(":y","200");			
 			if($stmt->execute()) {
 				
 	
@@ -157,12 +159,14 @@ class ProjectDAO extends DAO {
     }
 
     public function newVideo($name,$video){
-            $sql = "INSERT INTO whiteboard_video(name,video,project)
-                    VALUES(:name,:video,:project)";
+            $sql = "INSERT INTO whiteboard_video(name,video,project, x, y)
+                    VALUES(:name,:video,:project, :x, :y)";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindValue(":name",$name);
             $stmt->bindValue(":video",$video);
             $stmt->bindValue(":project",$_GET["name"]);
+            $stmt->bindValue(":x","200");
+            $stmt->bindValue(":y","200");
             if($stmt->execute()){
             }
             return false;
