@@ -2,15 +2,9 @@
 	<header><a href="index.php"><h1>Whiteboard</h1></a></header>
 	<ul>
 		<li><a href="index.php">Mijn projecten</a></li>
-		<li><input type="search" name="q" class="search" placeholder="Projecten zoeken" autocomplete="off" value="<?php 
-		if (!empty($_GET['q'])) {
-		 	echo $_GET['q'];
-		 } ?>"></li>
 		<li><a class="txt" href="#">tekst</a></li>
 		<li><a class="image" href="#">afbeelding</a></li>
 		<li><a class="video" href="#">video</a></li>
-
-		<li><a href="index.php">Mijn projecten</a></li>
 		<li><a href="index.php?page=notifications">Meldingen <span><?php echo $CountedNotification; ?></span></a></li>
 		<li><a class="perstoev" href="#">Persoon toevoegen</a></li>
 
@@ -36,8 +30,9 @@
 		
 	
 	 	foreach($existingTekst as $existing): ?>
-			
+	 	<div class="postit">
 				<p class="dragdrop board-tekst"><?php echo $existing["tekst"]; ?></p>
+		</div>
 			
 <?php
 		endforeach; 

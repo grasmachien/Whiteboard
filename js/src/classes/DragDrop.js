@@ -2,10 +2,16 @@ module.exports = (function(){
 	var hoogte = 0;
 	function Dragdrop() {
 		var elements = document.querySelectorAll(".dragdrop");
+		var postits = document.querySelectorAll(".postit");
 
 		for (var i = 0; i < elements.length; i++) {
 			var element = elements[i];
 			element = new DraggableBlock(element);
+		}
+
+		for (var j = 0; j < postits.length; j++) {
+			var postit = postits[j];
+			postit = new DraggableBlock(postit);
 		}
 	}
 
@@ -15,8 +21,7 @@ module.exports = (function(){
 		
 		if (this.el.addEventListener('mousedown', this.mouseDownHandler.bind(this))) {
 
-			window.addEventListener('mousemove', this._mousemoveHandler);
-		window.addEventListener('mousemove', this._mousemoveHandler);	
+			this.el.addEventListener('mousemove', this._mousemoveHandler);
 		}	
 	}
 
@@ -26,9 +31,8 @@ module.exports = (function(){
 
 		this._mousemoveHandler = this.mousemoveHandler.bind(this);
 		this._mouseupHandler = this.mouseupHandler;
-		window.addEventListener('mousemove', this._mousemoveHandler);
-		window.addEventListener('mouseup', this._mouseupHandler);
-		
+		this.el.addEventListener('mousemove', this._mousemoveHandler);
+		this.el.addEventListener('mouseup', this._mouseupHandler);
     
 	};
 
@@ -44,8 +48,8 @@ module.exports = (function(){
 
 	DraggableBlock.prototype.mouseupHandler = function(event) {
 		console.log("mouseup");
-		window.removeEventListener('mousemove', this.mousemoveHandler);
-    window.removeEventListener('mouseup', this.mouseupHandler);
+		this.el.removeEventListener('mousemove', this.mousemoveHandler);
+    	this.el.removeEventListener('mouseup', this.mouseupHandler);
 	};
 
 	return Dragdrop;
