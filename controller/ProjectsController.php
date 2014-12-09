@@ -14,9 +14,20 @@ class ProjectsController extends Controller {
 
 	public function invites(){
 
+		$existingTekst = $this->projectDAO->getTekstForProject($_GET['name']);
+		$existingImg = $this->projectDAO->getImgForProject($_GET['name']);
+		$existingVideo = $this->projectDAO->getVideoForProject($_GET['name']);
 		$allUsers = $this->projectDAO->getUsersForProject($_GET['name']);
+
+		$result = array(
+			'postits' => $existingTekst,
+			'images' => $existingImg,
+			'video' => $existingVideo,
+			'users' => $allUsers,
+		);
+
 		header('Content-Type: application/json');
-	    echo json_encode($allUsers);
+	    echo json_encode($result);
 	    die();
 	}
 
@@ -155,10 +166,6 @@ class ProjectsController extends Controller {
 		$this->set('existingImg', $existingImg);
 		$this->set('existingVideo', $existingVideo);
 		$this->set('allUsers', $allUsers);
-
-		// header('Content-Type: application/json');
-	 //    echo json_encode($allUsers);
-	 //    die();
 
 		if(!empty($_POST['action'])) {
 			if($_POST['action'] == 'nieuwtekst') {

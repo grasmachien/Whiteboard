@@ -20,7 +20,7 @@
 		<li><a class="logout" href="index.php?page=logout">Uitloggen</a></li>
 	</ul>
 </div>
-
+<!--
 <?php if (!empty($allUsers)) {
 		
 	
@@ -70,6 +70,7 @@
 		endforeach; 
 	}
 ?>
+-->
 
 
 
