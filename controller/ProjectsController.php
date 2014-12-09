@@ -12,6 +12,14 @@ class ProjectsController extends Controller {
 		$this->projectDAO = new ProjectDAO();
 	}
 
+	public function invites(){
+
+		$allUsers = $this->projectDAO->getUsersForProject($_GET['name']);
+		header('Content-Type: application/json');
+	    echo json_encode($allUsers);
+	    die();
+	}
+
 	public function index() {
 
 		$this->set('projecten', $this->projectDAO->selectAllFromUser($_SESSION['user']['email']));
@@ -147,6 +155,10 @@ class ProjectsController extends Controller {
 		$this->set('existingImg', $existingImg);
 		$this->set('existingVideo', $existingVideo);
 		$this->set('allUsers', $allUsers);
+
+		// header('Content-Type: application/json');
+	 //    echo json_encode($allUsers);
+	 //    die();
 
 		if(!empty($_POST['action'])) {
 			if($_POST['action'] == 'nieuwtekst') {

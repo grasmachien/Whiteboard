@@ -37,11 +37,9 @@
 	
 	 	foreach($existingTekst as $existing): ?>
 
-	 	<div class="postit">
-				<p class="dragdrop board-tekst"><?php echo $existing["tekst"]; ?></p>
+	 	<div class="postit dragdrop">
+				<p class="board-tekst"><?php echo $existing["tekst"]; ?></p>
 		</div>
-			
-
 
 <?php
 		endforeach; 

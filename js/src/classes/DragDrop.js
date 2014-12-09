@@ -37,7 +37,7 @@ module.exports = (function(){
 		    // this.el.style.zIndex = hoogte;
     		this.el.style.zIndex = hoogte;
     		hoogte ++;
-    		console.log(event.x - this.offsetX*2);
+    		console.log(event.x - this.offsetX*2);s
         this.el.style.left = (event.x - this.offsetX*2) + "px";
         this.el.style.top = (event.y - this.offsetY*2) + "px";
 

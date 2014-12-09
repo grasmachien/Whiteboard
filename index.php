@@ -32,6 +32,10 @@ $routes = array(
         'controller' => 'Projects',
         'action' => 'notifications'
     ),
+    'invites' => array(
+        'controller' => 'Projects',
+        'action' => 'invites'
+    ),
 );
 
 if(empty($_GET['page'])) {

@@ -161,17 +161,31 @@
 },{"./classes/Ajax":2,"./classes/Dragdrop":3}],2:[function(require,module,exports){
 module.exports = (function(){
 
+	var url = getUrlVars()["name"];
+
 	function Ajax() {
 
-		//image op schermkrijgen met ajax
-		$('#imageupload').submit(function(event) {
-			event.preventDefault();
-				$.ajax({
-					
-				}); 
-		});
+		voorbeeldJSONGet();
 
 	}
+
+	//image op schermkrijgen met ajax
+		function voorbeeldJSONGet() {
+
+			$.get( "index.php?page=invites&name="+ url, function( posts ) {
+			  console.log(posts);
+			  // var html = tpl(posts);
+			  // $('.main').prepend(html);
+			});
+		}
+
+		function getUrlVars() {
+		    var vars = {};
+		    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+		        vars[key] = value;
+		    });
+		    return vars;
+		}
 
 	return Ajax;
 
@@ -216,7 +230,7 @@ module.exports = (function(){
 		    // this.el.style.zIndex = hoogte;
     		this.el.style.zIndex = hoogte;
     		hoogte ++;
-    		console.log(event.x - this.offsetX*2);
+    		console.log(event.x - this.offsetX*2);s
         this.el.style.left = (event.x - this.offsetX*2) + "px";
         this.el.style.top = (event.y - this.offsetY*2) + "px";
 
