@@ -258,18 +258,14 @@ body {
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
+.postit {
+	height: 250px;
+	width: 250px;
+	background-color: yellow;
+	position: absolute;
+	left: 400px;
+	z-index: 999;
+}
 
 
 
