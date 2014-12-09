@@ -8,7 +8,6 @@ module.exports = (function(){
 			var element = elements[i];
 			element = new DraggableBlock(element);
 		}
-
 	}
 
 	function DraggableBlock(element){
@@ -17,9 +16,8 @@ module.exports = (function(){
 		// console.log($el);
 		this.el.addEventListener('mousedown', this.mouseDownHandler.bind(this));
 
-		
-	}
 
+	}
 
 	DraggableBlock.prototype.mouseDownHandler = function(event) {
 		this.offsetX = event.offsetX;

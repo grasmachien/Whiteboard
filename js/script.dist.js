@@ -2,8 +2,10 @@
 (function(){
 
 	var Dragdrop = require('./classes/Dragdrop');
+	var Ajax = require('./classes/Ajax');
 	function init() {
 		new Dragdrop();
+		new Ajax();
 
 		var btn = document.querySelector('.txt');
 		var btnvid = document.querySelector('.video');
@@ -156,7 +158,34 @@
 	init();
 })();
 
-},{"./classes/Dragdrop":2}],2:[function(require,module,exports){
+},{"./classes/Ajax":2,"./classes/Dragdrop":3}],2:[function(require,module,exports){
+module.exports = (function(){
+
+	function Ajax() {
+
+		//image op schermkrijgen met ajax
+		// $('#imageupload').submit(function(event) {
+		// 	event.preventDefault();
+		// 		$.ajax({
+		// 			type:"POST",
+		// 			url:"index.php?page=dboard&name=" + document.URL.split("name=")[1], 
+		// 			data: "image=" + $('#addImageImage').val() + "&action=" + "upload image",
+		// 			success:function(response){ 
+		// 				var imagesplit = response.split("<br />")[1];
+		// 				var imagespliter = imagesplit.split("<script")[0];
+						
+		//     			$(".whiteboard").html(imagespliter);
+		//     			new App(document.querySelector('.whiteboard'));
+		//     		}
+		// 		}); 
+		// });
+
+	}
+
+	return Ajax;
+
+})();
+},{}],3:[function(require,module,exports){
 module.exports = (function(){
 	var hoogte = 0;
 	function Dragdrop() {
@@ -167,7 +196,6 @@ module.exports = (function(){
 			var element = elements[i];
 			element = new DraggableBlock(element);
 		}
-
 	}
 
 	function DraggableBlock(element){
@@ -176,9 +204,8 @@ module.exports = (function(){
 		// console.log($el);
 		this.el.addEventListener('mousedown', this.mouseDownHandler.bind(this));
 
-		
-	}
 
+	}
 
 	DraggableBlock.prototype.mouseDownHandler = function(event) {
 		this.offsetX = event.offsetX;

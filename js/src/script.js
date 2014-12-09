@@ -1,8 +1,10 @@
 (function(){
 
 	var Dragdrop = require('./classes/Dragdrop');
+	var Ajax = require('./classes/Ajax');
 	function init() {
 		new Dragdrop();
+		new Ajax();
 
 		var btn = document.querySelector('.txt');
 		var btnvid = document.querySelector('.video');
