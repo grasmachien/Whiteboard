@@ -43,10 +43,12 @@ class ProjectsController extends Controller {
 			if($_POST['action'] == 'toestaan') {
 				
 				$this->projectDAO->updateInvite($_POST['invitedid']);
+				$this->redirect("index.php?page=notifications");
 
 			} else if($_POST['action'] == 'verwijderen') {
 
 				$this->projectDAO->deleteInvite($_POST['invitedid']);
+				$this->redirect("index.php?page=notifications");
 
 			}
 		}

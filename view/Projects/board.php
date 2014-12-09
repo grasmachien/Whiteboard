@@ -6,9 +6,9 @@
 		if (!empty($_GET['q'])) {
 		 	echo $_GET['q'];
 		 } ?>"></li>
-		<li><a class="txt" href="#">tekst</a></li>
-		<li><a class="image" href="#">afbeelding</a></li>
-		<li><a class="video" href="#">video</a></li>
+		<li><a class="txt" href="#">Tekst</a></li>
+		<li><a class="image" href="#">Afbeelding</a></li>
+		<li><a class="video" href="#">Video</a></li>
 
 		<li><a href="index.php">Mijn projecten</a></li>
 		<li><a href="index.php?page=notifications">Meldingen <span><?php echo $CountedNotification; ?></span></a></li>
@@ -36,9 +36,9 @@
 		
 	
 	 	foreach($existingTekst as $existing): ?>
-			
-				<p class="dragdrop board-tekst"><?php echo $existing["tekst"]; ?></p>
-			
+			<div class="postit dragdrop">
+				<p><?php echo $existing["tekst"]; ?></p>
+			</div>
 <?php
 		endforeach; 
 	}
@@ -48,7 +48,7 @@
 	
 	 	foreach($existingVideo as $video): ?>
 		<div class="dragdrop">
-				<video autoplay loop width="400" height="220" controls=true>
+				<video width="400" height="220" controls=true>
 					<source src="uploads/<?php echo $video['video']; ?>" type="video/mp4">
 				</video>
 		</div>
@@ -62,7 +62,7 @@
 	
 	 	foreach($existingImg as $img): ?>
 			<div class="dragdrop">
-				<img src="uploads/images/<?php echo $img['photo'] .".". $img['extension']; ?>" alt="">
+				<img src="uploads/images/<?php echo $img['photo'] .".". $img['extension']; ?>" class="dragable" alt="">
 			</div>
 <?php
 		endforeach; 
