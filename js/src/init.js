@@ -1,11 +1,25 @@
-fallback.load({
-	jQuery: '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js',
-	'script.dist.js' : 'js/script.dist.js'
-}, {
-	shim: {
-		'app.js': ['jQuery']
-	}
-});
+(function(){
 
-fallback.ready(function() {
-});
+
+	function init(){
+
+		fallback.load({
+			jQuery: ['//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js',
+			'js/vendor/jquery/dist/jquery.min.js'],
+			'script.dist.js' : 'js/script.dist.js'
+		}, {
+			shim: {
+				'script.dist.js': ['jQuery']
+			}
+		});
+
+		fallback.ready(function() {
+			console.log('loaded');
+			// Execute my code here!
+		});
+	}
+
+
+	init();
+
+})();

@@ -236,11 +236,6 @@ public function _uploadimage(){
 			$imageresize = new Eventviva\ImageResize($_FILES['image']['tmp_name']);
 			$imageresize->save(WWW_ROOT."uploads/images".DS.$name.".".$extension);
 
-					// $imageresize->resizeToHeight(200);
-					// $imageresize->save(WWW_ROOT."uploads".DS.$name."_th.".$extension);
-
-
-
 					move_uploaded_file($_FILES['image']["tmp_name"], WWW_ROOT."uploads/images".DS.$_FILES["image"]["name"]);
 					$image = $this->projectDAO->insertimage(array(
 						"project"=>$_GET['name'] ,
