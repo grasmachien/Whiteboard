@@ -1,10 +1,7 @@
 module.exports = (function(){
 	var hoogte = 0;
 	function Dragdrop() {
-		console.log($("body"));
 		var elements = document.querySelectorAll(".dragdrop");
-
-		console.log(elements);
 
 		for (var i = 0; i < elements.length; i++) {
 			var element = elements[i];

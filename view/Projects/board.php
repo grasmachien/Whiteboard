@@ -20,57 +20,64 @@
 		<li><a class="logout" href="index.php?page=logout">Uitloggen</a></li>
 	</ul>
 </div>
-<!--
-<?php if (!empty($allUsers)) {
-		
-	
-	 	foreach($allUsers as $user): ?>
-			<p><?php echo $user["invited_user_name"]; ?></p>
-<?php
-		endforeach; 
-	}
-?>
+
+<ul class="users-list">
+		    
+</ul>
+
+<ul class="postit-list">
+		    
+</ul>
+
+<ul class="video-list">
+		    
+</ul>
+
+<ul class="img-list">
+		    
+</ul>
 
 
-<?php if (!empty($existingTekst)) {
-		
-	
-	 	foreach($existingTekst as $existing): ?>
+<script type="text/template" id="users-template">
 
-	 	<div class="postit dragdrop">
-				<p class="board-tekst"><?php echo $existing["tekst"]; ?></p>
+	{{#each users}}
+		<p> {{invited_user_name}}</p>
+	{{/each}}
+  
+</script>
+
+<script type="text/template" id="postit-template">
+
+	{{#each postits}}
+		<div class="postit dragdrop">
+			<p class="board-tekst">{{tekst}}</p>
 		</div>
+	{{/each}}
+  
+</script>
 
-<?php
-		endforeach; 
-	}
-?>
-<?php if (!empty($existingVideo)) {
-		
-	
-	 	foreach($existingVideo as $video): ?>
+<script type="text/template" id="video-template">
+
+	{{#each video}}
 		<div class="dragdrop">
-				<video width="400" height="220" controls=true>
-					<source src="uploads/<?php echo $video['video']; ?>" type="video/mp4">
-				</video>
+			<video width="400" height="220" controls=true>
+				<source src="uploads/{{video}}" type="video/mp4">
+			</video>
 		</div>
-<?php
-		endforeach; 
-	}
-?>
+	{{/each}}
+  
+</script>
 
-<?php if (!empty($existingImg)) {
-		
-	
-	 	foreach($existingImg as $img): ?>
-			<div class="dragdrop">
-				<img src="uploads/images/<?php echo $img['photo'] .".". $img['extension']; ?>" class="dragable" alt="">
-			</div>
-<?php
-		endforeach; 
-	}
-?>
--->
+<script type="text/template" id="img-template">
+
+	{{#each images}}
+		<div class="dragdrop">
+			<img src="uploads/images/{{photo}}.{{extension}}" class="dragable" alt="">
+		</div>
+	{{/each}}
+  
+</script>
+
 
 
 

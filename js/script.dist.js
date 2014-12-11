@@ -165,17 +165,50 @@ module.exports = (function(){
 
 	function Ajax() {
 
-		voorbeeldJSONGet();
+		if(getUrlVars()["page"] === "board"){
+			boardJSONGet();
+		}
 
 	}
 
-	//image op schermkrijgen met ajax
-		function voorbeeldJSONGet() {
+		function boardJSONGet() {
 
 			$.get( "index.php?page=invites&name="+ url, function( posts ) {
-			  console.log(posts);
-			  // var html = tpl(posts);
-			  // $('.main').prepend(html);
+				console.log(posts);
+
+			//users template
+
+			var templateSrc = $('#users-template').text();
+			var template = Handlebars.compile( templateSrc );
+
+			var result = template(posts);		
+			$('.users-list').append($(result));
+
+			//positits template
+
+			var postTemplateSrc = $('#postit-template').text();
+			var postTemplate = Handlebars.compile( postTemplateSrc );
+
+			var postResult = postTemplate(posts);		
+			$('.postit-list').append($(postResult));
+
+			//video template
+
+			var vidTemplateSrc = $('#video-template').text();
+			var vidTemplate = Handlebars.compile( vidTemplateSrc );
+
+			var vidResult = vidTemplate(posts);		
+			$('.video-list').append($(vidResult));
+
+			//image template
+
+			var imgTemplateSrc = $('#img-template').text();
+			var imgTemplate = Handlebars.compile( imgTemplateSrc );
+
+			var imgResult = imgTemplate(posts);		
+			$('.img-list').append($(imgResult));
+
+
 			});
 		}
 
@@ -194,10 +227,7 @@ module.exports = (function(){
 module.exports = (function(){
 	var hoogte = 0;
 	function Dragdrop() {
-		console.log($("body"));
 		var elements = document.querySelectorAll(".dragdrop");
-
-		console.log(elements);
 
 		for (var i = 0; i < elements.length; i++) {
 			var element = elements[i];

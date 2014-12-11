@@ -14,7 +14,7 @@
 		});
 
 		fallback.ready(function() {
-			console.log('loaded');
+
 			// Execute my code here!
 		});
 	}
