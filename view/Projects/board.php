@@ -2,6 +2,7 @@
 	<header><a href="index.php"><h1>Whiteboard</h1></a></header>
 	<ul>
 		<li><a href="index.php">Mijn projecten</a></li>
+
 		<li><input type="search" name="q" class="search" placeholder="Projecten zoeken" autocomplete="off" value="<?php 
 		if (!empty($_GET['q'])) {
 		 	echo $_GET['q'];
@@ -10,7 +11,6 @@
 		<li><a class="image" href="#">Afbeelding</a></li>
 		<li><a class="video" href="#">Video</a></li>
 
-		<li><a href="index.php">Mijn projecten</a></li>
 		<li><a href="index.php?page=notifications">Meldingen <span><?php echo $CountedNotification; ?></span></a></li>
 		<li><a class="perstoev" href="#">Persoon toevoegen</a></li>
 
@@ -19,6 +19,10 @@
 
 		<li><a class="logout" href="index.php?page=logout">Uitloggen</a></li>
 	</ul>
+</div>
+<div class="bord-veld">
+	
+
 </div>
 
 <?php if (!empty($allUsers)) {
@@ -36,9 +40,11 @@
 		
 	
 	 	foreach($existingTekst as $existing): ?>
-			<div class="postit dragdrop">
-				<p><?php echo $existing["tekst"]; ?></p>
-			</div>
+
+	 	<div class="postit dragdrop">
+				<p class="board-tekst"><?php echo $existing["tekst"]; ?></p>
+		</div>
+
 <?php
 		endforeach; 
 	}
@@ -124,3 +130,6 @@
 			
 	</div>
 </section>
+<script type="text/template" id="template-images">
+	{{#each }}
+</script>

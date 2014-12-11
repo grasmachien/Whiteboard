@@ -126,6 +126,14 @@ body {
   padding: 10px 0;
 }
 
+.postit {
+  width: 250px;
+  height: 250px;
+  background: #E6DB74;
+  position: absolute;
+  margin-left: 300px;
+}
+
 .textinput {
   width: 150px;
   float: right;
@@ -392,13 +400,6 @@ body {
     transform: translateX(10px);
   }
 }
-.board-tekst {
-  background: #D6D9DA;
-  padding: 20px;
-  color: black;
-  width: 100%;
-}
-
 .dragdrop {
   position: absolute;
 }

@@ -161,26 +161,43 @@
 },{"./classes/Ajax":2,"./classes/Dragdrop":3}],2:[function(require,module,exports){
 module.exports = (function(){
 
+	var url = getUrlVars()["name"];
+
 	function Ajax() {
 
-		//image op schermkrijgen met ajax
-		// $('#imageupload').submit(function(event) {
-		// 	event.preventDefault();
-		// 		$.ajax({
-		// 			type:"POST",
-		// 			url:"index.php?page=dboard&name=" + document.URL.split("name=")[1], 
-		// 			data: "image=" + $('#addImageImage').val() + "&action=" + "upload image",
-		// 			success:function(response){ 
-		// 				var imagesplit = response.split("<br />")[1];
-		// 				var imagespliter = imagesplit.split("<script")[0];
-						
-		//     			$(".whiteboard").html(imagespliter);
-		//     			new App(document.querySelector('.whiteboard'));
-		//     		}
-		// 		}); 
-		// });
+		getJSON();
 
 	}
+
+	//image op schermkrijgen met ajax
+		function getJSON() {
+
+			$.get( "index.php?page=invites&name="+ url, function( posts ) {
+			  console.log(posts.images);
+			  placeImages(posts.images);
+			  // var html = tpl(posts);
+			  // $('.main').prepend(html);
+			});
+		}
+
+		function getUrlVars() {
+		    var vars = {};
+		    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+		        vars[key] = value;
+		    });
+		    return vars;
+		}
+
+		function placeImages(images){
+			var templateImagesSrc = $("#template-images").text();
+			console.log(templateImagesSrc);
+			var templateImages = Handlebars.compile( templateImagesSrc );
+			var data = images;
+			var resultImages = templateImages(data);
+
+			$('.bord-veld').append($(resultImages));
+
+		}
 
 	return Ajax;
 
@@ -189,22 +206,20 @@ module.exports = (function(){
 module.exports = (function(){
 	var hoogte = 0;
 	function Dragdrop() {
-		console.log($("body"));
 		var elements = document.querySelectorAll(".dragdrop");
-		console.log(elements);
+
 		for (var i = 0; i < elements.length; i++) {
 			var element = elements[i];
 			element = new DraggableBlock(element);
 		}
+
 	}
 
 	function DraggableBlock(element){
 
 		this.el = element;
-
-		// console.log($el);
+		console.log(this.el);
 		this.el.addEventListener('mousedown', this.mouseDownHandler.bind(this));
-
 
 	}
 
@@ -212,7 +227,7 @@ module.exports = (function(){
 		event.preventDefault();
 		this.offsetX = event.offsetX;
 		this.offsetY = event.offsetY;
-		
+		console.log(this);
 		this._mousemoveHandler = this.mousemoveHandler.bind(this);
 		this._mouseupHandler = this.mouseupHandler.bind(this);
 		window.addEventListener('mousemove', this._mousemoveHandler);
@@ -225,7 +240,6 @@ module.exports = (function(){
 		    // this.el.style.zIndex = hoogte;
     		this.el.style.zIndex = hoogte;
     		hoogte ++;
-    		console.log(event.pageX);
         this.el.style.left = (event.pageX - this.offsetX) + "px";
         this.el.style.top = (event.pageY - this.offsetY) + "px";
 

@@ -1,28 +1,28 @@
 module.exports = (function(){
 	var hoogte = 0;
 	function Dragdrop() {
-		console.log($("body"));
 		var elements = document.querySelectorAll(".dragdrop");
-		console.log(elements);
+
 		for (var i = 0; i < elements.length; i++) {
 			var element = elements[i];
 			element = new DraggableBlock(element);
 		}
+
 	}
 
 	function DraggableBlock(element){
 
 		this.el = element;
+		console.log(this.el);
 		this.el.addEventListener('mousedown', this.mouseDownHandler.bind(this));
-
 
 	}
 
-	DraggableBlock.prototype._mouseDownHandler = function(event) {
+	DraggableBlock.prototype.mouseDownHandler = function(event) {
 		event.preventDefault();
 		this.offsetX = event.offsetX;
 		this.offsetY = event.offsetY;
-		
+		console.log(this);
 		this._mousemoveHandler = this.mousemoveHandler.bind(this);
 		this._mouseupHandler = this.mouseupHandler.bind(this);
 		window.addEventListener('mousemove', this._mousemoveHandler);
@@ -31,11 +31,10 @@ module.exports = (function(){
     
 	};
 
-	DraggableBlock.prototype._mousemoveHandler = function(event) {
+	DraggableBlock.prototype.mousemoveHandler = function(event) {
 		    // this.el.style.zIndex = hoogte;
     		this.el.style.zIndex = hoogte;
     		hoogte ++;
-    		console.log(event.pageX);
         this.el.style.left = (event.pageX - this.offsetX) + "px";
         this.el.style.top = (event.pageY - this.offsetY) + "px";
 
