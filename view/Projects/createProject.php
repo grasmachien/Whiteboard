@@ -7,7 +7,7 @@
 		 	echo $_GET['q'];
 		 } ?>"></li>
 
-		<li><a class="logout" href="index.php?page=logout">Uitloggen</a></li>
+		<li class="logout"><a  href="index.php?page=logout">Uitloggen</a></li>
 	</ul>
 </div>
 

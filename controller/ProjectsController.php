@@ -169,15 +169,15 @@ class ProjectsController extends Controller {
 		$this->set('allUsers', $allUsers);
 
 		if(!empty($_POST['action'])) {
-			if($_POST['action'] == 'nieuwtekst') {
+			if($_POST['action'] == 'plaats postit') {
 				$this->_nieuwtekst();
 				$this->projectDAO->getTekstForProject($_GET['name']);
 				$this->redirect("index.php?page=board&name=" . $_GET['name']);
-			} else if($_POST['action'] == 'uploadimg') {
+			} else if($_POST['action'] == 'plaats img') {
 
 				$this->_uploadimage();
 				$this->redirect("index.php?page=board&name=" . $_GET['name']);
-			} else if($_POST['action'] == 'upload') {
+			} else if($_POST['action'] == 'plaats video') {
 
 				$this->_uploadVideo();
 				$this->redirect("index.php?page=board&name=" . $_GET['name']);
