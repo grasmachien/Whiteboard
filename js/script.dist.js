@@ -1,11 +1,12 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function(){
 
-	var Dragdrop = require('./classes/Dragdrop');
 	var Ajax = require('./classes/Ajax');
+	
+	
 	function init() {
-		new Dragdrop();
 		new Ajax();
+
 
 		var btn = document.querySelector('.txt');
 		var btnvid = document.querySelector('.video');
@@ -158,9 +159,10 @@
 	init();
 })();
 
-},{"./classes/Ajax":2,"./classes/Dragdrop":3}],2:[function(require,module,exports){
+},{"./classes/Ajax":2}],2:[function(require,module,exports){
 module.exports = (function(){
 
+	var DragDrop = require('../classes/DragDrop');
 	var url = getUrlVars()["name"];
 
 	function Ajax() {
@@ -208,6 +210,10 @@ module.exports = (function(){
 			var imgResult = imgTemplate(posts);		
 			$('.img-list').append($(imgResult));
 
+			console.log('ik verlaat ajax');
+
+			new DragDrop();
+
 
 			});
 		}
@@ -223,26 +229,21 @@ module.exports = (function(){
 	return Ajax;
 
 })();
-},{}],3:[function(require,module,exports){
+},{"../classes/DragDrop":3}],3:[function(require,module,exports){
 module.exports = (function(){
 	var hoogte = 0;
 	function Dragdrop() {
-		var elements = document.getElementsByClassName("dragdrop");
-		// console.log(elements);
-		console.log(elements.namedItem());
-		console.log(elements.length);
-		for(var i = 0; i < elements.length; i++){
-			console.log("hi");
-			// var element = elements[i];
-			// Distribute(elements.element]);
-			// console.log(elements.item(i));
-			// element = new DraggableBlock(element);
+		var elements = document.querySelectorAll(".dragdrop");
+
+		for (var i = 0; i < elements.length; i++) {
+			var element = elements[i];
+			element = new DraggableBlock(element);
 		}
 
 	}
 
 	function DraggableBlock(element){
-		console.log(element);
+
 		this.el = element;
 		console.log(this.el);
 		this.el.addEventListener('mousedown', this.mouseDownHandler.bind(this));
@@ -250,7 +251,6 @@ module.exports = (function(){
 	}
 
 	DraggableBlock.prototype.mouseDownHandler = function(event) {
-		
 		event.preventDefault();
 		this.offsetX = event.offsetX;
 		this.offsetY = event.offsetY;
