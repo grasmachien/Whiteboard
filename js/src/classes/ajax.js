@@ -1,5 +1,6 @@
 module.exports = (function(){
 
+	var DragDrop = require('../classes/DragDrop');
 	var url = getUrlVars()["name"];
 
 	function Ajax() {
@@ -46,6 +47,10 @@ module.exports = (function(){
 
 			var imgResult = imgTemplate(posts);		
 			$('.img-list').append($(imgResult));
+
+			console.log('ik verlaat ajax');
+
+			new DragDrop();
 
 
 			});
