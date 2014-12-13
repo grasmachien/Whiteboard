@@ -131,7 +131,6 @@ body {
   height: 250px;
   background: #E6DB74;
   position: absolute;
-  margin-left: 300px;
 }
 
 .textinput {
@@ -153,6 +152,7 @@ body {
   float: left;
   position: relative;
   z-index: 999;
+  display: none;
 }
 .sidebar a {
   color: white;
@@ -402,7 +402,6 @@ body {
 }
 .dragdrop {
   position: absolute;
-  left: 300px;
 }
 .dragdrop html {
   -moz-box-sizing: border-box;

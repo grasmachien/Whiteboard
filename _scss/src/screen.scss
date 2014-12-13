@@ -52,7 +52,6 @@ body {
 	height:250px;
 	background:#E6DB74;
 	position: absolute;
-	margin-left:300px;
 
 }
 
@@ -77,7 +76,7 @@ body {
 	position: relative;
 	z-index: 999;
 
-	// display: none;
+	display: none;
 
 
 	a {
@@ -255,7 +254,7 @@ body {
 .dragdrop {
 	position: absolute;
 	// box-shadow: 0 0 25px #060606;
-	left: 300px;
+	// left: 300px;
 	@include border-box-default;
 
 }

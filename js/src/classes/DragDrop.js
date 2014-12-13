@@ -13,7 +13,6 @@ module.exports = (function(){
 	function DraggableBlock(element){
 
 		this.el = element;
-		console.log(this.el);
 		this.el.addEventListener('mousedown', this.mouseDownHandler.bind(this));
 
 	}
@@ -22,7 +21,6 @@ module.exports = (function(){
 		event.preventDefault();
 		this.offsetX = event.offsetX;
 		this.offsetY = event.offsetY;
-		console.log(this);
 		this._mousemoveHandler = this.mousemoveHandler.bind(this);
 		this._mouseupHandler = this.mouseupHandler.bind(this);
 		window.addEventListener('mousemove', this._mousemoveHandler);
@@ -44,8 +42,33 @@ module.exports = (function(){
 		// console.log(this.el);
 		window.removeEventListener('mousemove', this._mousemoveHandler);
     window.removeEventListener('mouseup', this._mouseupHandler);
-	};
+    // console.log(event.y);
+    // console.log(document.URL);
+    console.log(this.el.offsetTop);
+    $.post( "index.php?page=postxy", { 
+			x: this.el.offsetLeft,
+			y: this.el.offsetTop
+		})
+		.done(function( data ) {
+	    console.log(data);
+	  }
+	)};
+    // $.post ( { document:URL, 
+    // 	{
+    // 		x : event.x,
+    // 		y : event.y
+    // 	}
+    // )
+    // .done(function (data){
+    // 	console.log("data loaded:");
+    // });
+
+    // })
+	
 
 	return Dragdrop;
 
 })();
+
+
+

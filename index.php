@@ -36,6 +36,10 @@ $routes = array(
         'controller' => 'Projects',
         'action' => 'invites'
     ),
+    'postxy' => array(
+        'controller' => 'Projects',
+        'action' => 'postxy'
+    ),
 );
 
 if(empty($_GET['page'])) {

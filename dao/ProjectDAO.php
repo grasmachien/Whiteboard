@@ -233,6 +233,18 @@ class ProjectDAO extends DAO {
         return array();
     }
 
+      public function updatexy($data){
+
+        $sql = 'UPDATE whiteboard_img
+                    SET x = :x AND y = :y';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':x', $data['x']);
+        $stmt->bindValue(':y', $data['y']);
+        $stmt->execute();
+    }
+
+    
+
 	public function selectByNaam($naam){
 		$sql = "SELECT *
 				FROM `whiteboard_projects`

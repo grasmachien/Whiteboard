@@ -154,6 +154,7 @@ class ProjectsController extends Controller {
 
 	public function board() {
 
+
 		$Notifications = $this->projectDAO->getNotifications($_SESSION['user']['id']);
 		$CountedNotification = count($Notifications);
 		$this->set('CountedNotification', $CountedNotification);
@@ -273,5 +274,46 @@ public function _uploadimage(){
 
 		}
 
+		public function postxy()
+		{
+			// $confirm = true;
+			// $errors = array();
+			// $data = $_POST;
+			// $confirm = false;
+
+			// if ($data) {
+			// 	$updated_xy = $this->projectDAO->updatexy($data);
+			// }
+
+		$confirm = true;
+  	$errors = array();
+  	$data = $_POST;
+  	$confirm = false;
+
+  	if($data){
+	  	$inserted_post = $this->projectDAO->updatexy($data);
+			if(!$inserted_post){
+				// $errors = $this->postDAO->getValidationErrors($data);
+        // header('Content-Type: application/json');
+        // echo json_encode(array('result' => false, 'errors' => $errors));
+        // die();
+			}else{
+        
+				$confirm = true;
+				// $this->redirect("index.php?page=posts");
+        
+        header('Content-Type: application/json');
+        echo json_encode(array('result' => true));
+        die();
+			}
+  	}
+
+  	$this->set("data", $data);
+  	$this->set("confirm", $confirm);
+		$this->set("errors", $errors);
+
+  }
+
+		
 
 }

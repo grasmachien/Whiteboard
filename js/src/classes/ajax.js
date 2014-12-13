@@ -14,7 +14,7 @@ module.exports = (function(){
 		function boardJSONGet() {
 
 			$.get( "index.php?page=invites&name="+ url, function( posts ) {
-				// console.log(posts);
+				console.log(posts);
 
 			//users template
 
