@@ -2,28 +2,24 @@
 	<header><a href="index.php"><h1>Whiteboard</h1></a></header>
 	<ul>
 		<li><a href="index.php">Mijn projecten</a></li>
-
-		<li><input type="search" name="q" class="search" placeholder="Projecten zoeken" autocomplete="off" value="<?php 
-		if (!empty($_GET['q'])) {
-		 	echo $_GET['q'];
-		 } ?>"></li>
 		<li><a class="txt" href="#">Tekst</a></li>
 		<li><a class="image" href="#">Afbeelding</a></li>
 		<li><a class="video" href="#">Video</a></li>
 
 		<li><a href="index.php?page=notifications">Meldingen <span><?php echo $CountedNotification; ?></span></a></li>
 		<li><a class="perstoev" href="#">Persoon toevoegen</a></li>
+		<li class="usershover"><a class="usersinboard" href="#">Medegebruikers</a>
 
-		
+		<ul class="users-list">
+		    
+</ul>
+		</li>
 
-
-		<li><a class="logout" href="index.php?page=logout">Uitloggen</a></li>
+		<li class="logout"><a  href="index.php?page=logout">Uitloggen</a></li>
 	</ul>
 </div>
 
-<ul class="users-list">
-		    
-</ul>
+
 
 <ul class="postit-list">
 		    
@@ -41,7 +37,7 @@
 <script type="text/template" id="users-template">
 
 	{{#each users}}
-		<p> {{invited_user_name}}</p>
+		<p class="gebruikers"> {{invited_user_name}}</p>
 	{{/each}}
   
 </script>
@@ -92,9 +88,9 @@
 		<form action="" method="post" enctype="multipart/form-data" id="tekstupload" class="hideform">
 			<fieldset>
 					
-				<label for="name" id="name">Tekst</label><br/>
-				<input type="text" required pattern="[A-Za-z].{4,}" class="name" name="nieuwtekst" placeholder="tekst" value=""/>
-				<input type="submit" name="action" id="btnsubmit" value="nieuwtekst"/>
+				<label for="name" class="label" id="name">Post-it</label><br/>
+				<textarea required pattern="[A-Za-z].{4,}" name="nieuwtekst" class="txtarea" rows="10" cols="50" value="" placeholder="plaats hier je tekst"></textarea>
+				<input type="submit" name="action" id="btnsubmit" value="plaats postit"/>
 
 			</fieldset>
 		</form>
@@ -102,9 +98,9 @@
 		<form action="" method="post" enctype="multipart/form-data" id="imageupload" class="hideform">
 			<fieldset>
 
-				<label for="videofile">Image</label><br/>
-				<input type="file" name="image" required class="addvideo">
-				<input type="submit" name="action" id="btnsubmit" value="uploadimg"/>
+				<label for="videofile" class="label">Image</label><br/>
+				<input type="file" name="image" class="imgupload" required class="addvideo">
+				<input type="submit" name="action" id="btnsubmit" value="plaats img"/>
 
 			</fieldset>
 		</form>
@@ -112,11 +108,11 @@
 		<form action="" method="post" enctype="multipart/form-data" id="videoupload" class="hideform">
 			<fieldset>
 
-				<label for="name" id="name">Video</label><br/>
-				<input type="text" required pattern="[A-Za-z].{4,}" class="name" name="name" placeholder="name" value=""/>
-				<label for="videofile">Video (MP4, max 10MB)</label><br/>
-				<input type="file" name="videofile" required class="addvideo">
-				<input type="submit" name="action" id="btnsubmit" value="upload"/>
+				<label for="name" class="label">Naam filmpje</label><br/>
+				<input type="text" required pattern="[A-Za-z].{4,}" class="name" name="name" placeholder="name" value=""/> <br/>
+				<label for="videofile" class="label">Video (MP4, max 10MB)</label><br/>
+				<input type="file" class="imgupload" name="videofile" required class="addvideo">
+				<input type="submit" name="action" id="btnsubmit" value="plaats video"/>
 
 			</fieldset>
 		</form>
@@ -124,8 +120,8 @@
 		<form action="" method="post" enctype="multipart/form-data" id="persoonupload" class="hideform">
 			<fieldset>
 
-				<label for="newProjectNaam">Mensen toevoegen?</label>
-				<input type="search" name="invited" class="search" placeholder="Mensen zoeken" autocomplete="off" value=""/>
+				<label for="newProjectNaam" class="label">Mensen toevoegen?</label> <br/>
+				<input type="search" name="invited" class="name" placeholder="Mensen zoeken" autocomplete="off" value=""/>
 				<input type="submit" name="action" id="btnsubmit" value="toevoegen"/>
 
 			</fieldset>

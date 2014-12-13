@@ -148,7 +148,6 @@ class ProjectDAO extends DAO {
       $stmt->bindValue(":y","200");			
 			if($stmt->execute()) {
 				
-	
 			}
 		}
 		return false;

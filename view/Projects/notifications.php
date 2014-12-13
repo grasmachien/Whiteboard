@@ -4,7 +4,7 @@
 		<li><a href="index.php">Mijn projecten</a></li>
 		<li><a href="">Meldingen <span><?php echo $CountedNotification; ?></span></a></li>
 
-		<li><a class="logout" href="index.php?page=logout">Uitloggen</a></li>
+		<li class="logout"><a  href="index.php?page=logout">Uitloggen</a></li>
 	</ul>
 </div>
 

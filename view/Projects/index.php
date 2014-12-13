@@ -12,7 +12,7 @@
 		</li>
 		<li><a href="index.php?page=createProject">Nieuw project</a></li>
 		<li><a href="index.php?page=notifications">Meldingen <span><?php echo $CountedNotification; ?></span></a></li>
-		<li><a class="logout" href="index.php?page=logout">Uitloggen</a></li>
+		<li class="logout"><a  href="index.php?page=logout">Uitloggen</a></li>
 	</ul>
 </div>
 
@@ -43,10 +43,13 @@
 			if (!empty($projecten)) {
 				foreach ($projecten as $project) { ?>
 					<li class="project-th">
+					<div class="imgproject">
 						<a href="index.php?page=board&amp;name=<?php echo $project['name']; ?>">
-							<img src="uploads/<?php echo $project['photo']."_th.". $project['extension']; ?>" alt="">
-							<header><h1><?php echo $project['name']; ?></h1></header>
+							<img class="projectimg" src="uploads/<?php echo $project['photo']."_th.". $project['extension']; ?>" alt="">
+							
 						</a>
+					</div>
+					<header><h1><?php echo $project['name']; ?></h1></header>
 					</li>
 					
 				<?php } 
