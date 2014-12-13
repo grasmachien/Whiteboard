@@ -255,6 +255,7 @@ body {
 .dragdrop {
 	position: absolute;
 	// box-shadow: 0 0 25px #060606;
+	left: 300px;
 	@include border-box-default;
 
 }

@@ -1,17 +1,22 @@
 module.exports = (function(){
 	var hoogte = 0;
 	function Dragdrop() {
-		var elements = document.querySelectorAll(".dragdrop");
-
-		for (var i = 0; i < elements.length; i++) {
-			var element = elements[i];
-			element = new DraggableBlock(element);
+		var elements = document.getElementsByClassName("dragdrop");
+		// console.log(elements);
+		console.log(elements.namedItem());
+		console.log(elements.length);
+		for(var i = 0; i < elements.length; i++){
+			console.log("hi");
+			// var element = elements[i];
+			// Distribute(elements.element]);
+			// console.log(elements.item(i));
+			// element = new DraggableBlock(element);
 		}
 
 	}
 
 	function DraggableBlock(element){
-
+		console.log(element);
 		this.el = element;
 		console.log(this.el);
 		this.el.addEventListener('mousedown', this.mouseDownHandler.bind(this));
@@ -19,6 +24,7 @@ module.exports = (function(){
 	}
 
 	DraggableBlock.prototype.mouseDownHandler = function(event) {
+		
 		event.preventDefault();
 		this.offsetX = event.offsetX;
 		this.offsetY = event.offsetY;

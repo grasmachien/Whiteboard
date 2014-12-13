@@ -402,6 +402,7 @@ body {
 }
 .dragdrop {
   position: absolute;
+  left: 300px;
 }
 .dragdrop html {
   -moz-box-sizing: border-box;

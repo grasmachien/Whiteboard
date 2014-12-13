@@ -165,18 +165,50 @@ module.exports = (function(){
 
 	function Ajax() {
 
-		getJSON();
+		if(getUrlVars()["page"] === "board"){
+			boardJSONGet();
+		}
 
 	}
 
-	//image op schermkrijgen met ajax
-		function getJSON() {
+		function boardJSONGet() {
 
 			$.get( "index.php?page=invites&name="+ url, function( posts ) {
-			  console.log(posts.images);
-			  placeImages(posts.images);
-			  // var html = tpl(posts);
-			  // $('.main').prepend(html);
+				// console.log(posts);
+
+			//users template
+
+			var templateSrc = $('#users-template').text();
+			var template = Handlebars.compile( templateSrc );
+
+			var result = template(posts);		
+			$('.users-list').append($(result));
+
+			//positits template
+
+			var postTemplateSrc = $('#postit-template').text();
+			var postTemplate = Handlebars.compile( postTemplateSrc );
+
+			var postResult = postTemplate(posts);		
+			$('.postit-list').append($(postResult));
+
+			//video template
+
+			var vidTemplateSrc = $('#video-template').text();
+			var vidTemplate = Handlebars.compile( vidTemplateSrc );
+
+			var vidResult = vidTemplate(posts);		
+			$('.video-list').append($(vidResult));
+
+			//image template
+
+			var imgTemplateSrc = $('#img-template').text();
+			var imgTemplate = Handlebars.compile( imgTemplateSrc );
+
+			var imgResult = imgTemplate(posts);		
+			$('.img-list').append($(imgResult));
+
+
 			});
 		}
 
@@ -188,17 +220,6 @@ module.exports = (function(){
 		    return vars;
 		}
 
-		function placeImages(images){
-			var templateImagesSrc = $("#template-images").text();
-			console.log(templateImagesSrc);
-			var templateImages = Handlebars.compile( templateImagesSrc );
-			var data = images;
-			var resultImages = templateImages(data);
-
-			$('.bord-veld').append($(resultImages));
-
-		}
-
 	return Ajax;
 
 })();
@@ -206,17 +227,22 @@ module.exports = (function(){
 module.exports = (function(){
 	var hoogte = 0;
 	function Dragdrop() {
-		var elements = document.querySelectorAll(".dragdrop");
-
-		for (var i = 0; i < elements.length; i++) {
-			var element = elements[i];
-			element = new DraggableBlock(element);
+		var elements = document.getElementsByClassName("dragdrop");
+		// console.log(elements);
+		console.log(elements.namedItem());
+		console.log(elements.length);
+		for(var i = 0; i < elements.length; i++){
+			console.log("hi");
+			// var element = elements[i];
+			// Distribute(elements.element]);
+			// console.log(elements.item(i));
+			// element = new DraggableBlock(element);
 		}
 
 	}
 
 	function DraggableBlock(element){
-
+		console.log(element);
 		this.el = element;
 		console.log(this.el);
 		this.el.addEventListener('mousedown', this.mouseDownHandler.bind(this));
@@ -224,6 +250,7 @@ module.exports = (function(){
 	}
 
 	DraggableBlock.prototype.mouseDownHandler = function(event) {
+		
 		event.preventDefault();
 		this.offsetX = event.offsetX;
 		this.offsetY = event.offsetY;
