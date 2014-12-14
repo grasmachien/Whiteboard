@@ -117,39 +117,36 @@
 
 				label.classList.add("labelanim");
 				txtform.focus();
-
-				
 			});
 		}
 
-		var btnsubmit = document.querySelector('#btnsubmit');
-		if(btnsubmit) {
-			btnsubmit.addEventListener("click", function(){
+		// var btnsubmit = document.querySelector('#btnsubmit');
+		// if(btnsubmit) {
+		// 	btnsubmit.addEventListener("click", function(){
 
-				if(document.querySelector(".name").value === ""){
+		// 		if(document.querySelector(".name").value === ""){
 				    
-					var nameinput = document.querySelector('.name');
-					nameinput.classList.add("error");
+		// 			var nameinput = document.querySelector('.name');
+		// 			nameinput.classList.add("error");
 				
-					window.setTimeout(function() {
- 		 	 			nameinput.classList.remove("error");
-					}, 500);
+		// 			window.setTimeout(function() {
+ 	// 	 	 			nameinput.classList.remove("error");
+		// 			}, 500);
+		// 		}
 
-				}
-
-				if(document.querySelector(".addvideo").value === ""){
+		// 		if(document.querySelector(".addvideo").value === ""){
 				    
-					var fileinput = document.querySelector('.addvideo');
-					fileinput.classList.add("error");
+		// 			var fileinput = document.querySelector('.addvideo');
+		// 			fileinput.classList.add("error");
 				
-					window.setTimeout(function() {
- 		 	 			fileinput.classList.remove("error");
-					}, 500);
+		// 			window.setTimeout(function() {
+ 	// 	 	 			fileinput.classList.remove("error");
+		// 			}, 500);
 
-				}
+		// 		}
 				
-			});
-		}
+		// 	});
+		// }
 
 	}
 

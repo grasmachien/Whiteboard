@@ -21,20 +21,24 @@
 	
 	<?php if (!empty($searchResult)) { 
 		foreach ($searchResult as $result) { ?>
-			<li class="searchResult">
-				<?php if (!empty($result['photo'])) { ?>
-					<img src="uploads/<?php echo $result['photo']. "_th." . $result['extension']; ?>" alt="<?php echo $result['name']; ?>">
-				<?php } else { ?>
-					<img src="uploads/nopic.jpg" alt="geen foto">
-				<?php } ?>
-				<p><?php echo $result['name']; ?></p>
-			</li>	
-			<form action="" method="post" >
+			<li class="project-th">
+				<div class="imgproject">
+					<?php if (!empty($result['photo'])) { ?>
+						<img class="projectimg" src="uploads/<?php echo $result['photo']. "_th." . $result['extension']; ?>" alt="<?php echo $result['name']; ?>">
+					<?php } else { ?>
+						<img src="uploads/nopic.jpg" alt="geen foto">
+					<?php } ?>
+					<header><h1><?php echo $result['name']; ?></h1></header>
+				</div>
+
+				<form action="" method="post" class="invitebtn">
 				<fieldset>
 					<input type="hidden" name="projectnaam" value="<?php echo $result["name"]; ?>"/>
 					<input type="submit" name="action"  value="request_invite"/>
 				</fieldset>
 			</form>
+			</li>	
+			
 		<?php } ?> 
 
 	<?php 

@@ -20,19 +20,21 @@
 	</ul>
 </div>
 
+<div class="allelements">
 
+	<ul class="postit-list">
+			    
+	</ul>
 
-<ul class="postit-list">
-		    
-</ul>
+	<ul class="video-list">
+			    
+	</ul>
 
-<ul class="video-list">
-		    
-</ul>
+	<ul class="img-list">
+			    
+	</ul>
 
-<ul class="img-list">
-		    
-</ul>
+</div>
 
 
 <script type="text/template" id="users-template">
@@ -91,7 +93,7 @@
 					
 				<label for="name" class="label" id="name">Post-it</label><br/>
 				<textarea required pattern="[A-Za-z].{4,}" name="nieuwtekst" class="txtarea" rows="10" cols="50" value="" placeholder="plaats hier je tekst"></textarea>
-				<input type="submit" name="action" id="btnsubmit" value="plaats postit"/>
+				<input type="submit" name="action" class="postitbtn" id="btnsubmit" value="plaats postit"/>
 
 			</fieldset>
 		</form>

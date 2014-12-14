@@ -35,10 +35,14 @@ $routes = array(
     'invites' => array(
         'controller' => 'Projects',
         'action' => 'invites'
-    ),
+    ),   
     'postxy' => array(
         'controller' => 'Projects',
         'action' => 'postxy'
+    ),
+    'postpostit' => array(
+        'controller' => 'Projects',
+        'action' => 'postpostit'
     ),
 );
 

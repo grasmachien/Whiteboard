@@ -2,12 +2,65 @@ module.exports = (function(){
 
 	var DragDrop = require('../classes/DragDrop');
 	var url = getUrlVars()["name"];
+	var postitbtn = document.querySelector('.postitbtn');
 
 	function Ajax() {
 
 		if(getUrlVars()["page"] === "board"){
 			boardJSONGet();
 		}
+
+		console.log(postitbtn);
+		if(postitbtn){
+			postitbtn.addEventListener('click', function(){
+				event.preventDefault();
+				console.log('klik');
+
+				var postitinput = document.querySelector('.txtarea').value;
+				var projectnaamhash = getUrlVars()["name"];
+
+				projectnaam = projectnaamhash.substring(0, projectnaamhash.length - 1);
+
+				console.log(projectnaam);
+
+				$.post( "index.php?page=postpostit", { 
+					tekst: postitinput,
+					project: projectnaam
+				})
+				.done(function( data ) {
+			    console.log(data);
+
+			    $('.postit-list').empty();
+			    $('.users-list').empty();
+			    $('.video-list').empty();
+			    $('.img-list').empty();
+
+			    var uploadblock = document.getElementById('pop');
+				var form = document.getElementById('uploadwrap'); 
+				var label = document.querySelector('#name');
+
+				uploadblock.classList.remove("uploadblock");
+				form.classList.remove("animform");
+				uploadblock.classList.add("hidden");
+
+				var txtupload = document.querySelector('#tekstupload');
+				var videoupload = document.querySelector('#videoupload');
+				var imageupload = document.querySelector('#imageupload');
+				var persoonupload = document.querySelector('#persoonupload');
+
+					txtupload.classList.add("hideform");
+					videoupload.classList.add("hideform");
+					imageupload.classList.add("hideform");
+					persoonupload.classList.add("hideform");
+
+			    boardJSONGet();
+
+			  });
+
+
+			});
+		}
+	
 
 	}
 

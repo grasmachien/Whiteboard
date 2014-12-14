@@ -127,8 +127,8 @@ class ProjectDAO extends DAO {
 		if(empty($errors)) {
 			$sql = "INSERT INTO `whiteboard_tekst` (`tekst`, `project`, `x`, `y`) VALUES (:tekst, :project, :x, :y)";
 			$stmt = $this->pdo->prepare($sql);
-			$stmt->bindValue(':tekst', $data['nieuwtekst']);
-			$stmt->bindValue(':project', $_GET["name"]);
+			$stmt->bindValue(':tekst', $data['tekst']);
+			$stmt->bindValue(':project', $data['project']);
 			$stmt->bindValue(":x","200");
       		$stmt->bindValue(":y","200");	
 			if($stmt->execute()) {
