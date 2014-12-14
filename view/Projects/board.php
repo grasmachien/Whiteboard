@@ -1,6 +1,3 @@
-<?php echo "<pre>";
-var_dump($_POST);
-echo "</pre>"; ?>
 <div class="sidebar">
 	<header><a href="index.php"><h1>Whiteboard</h1></a></header>
 	<ul>
@@ -70,8 +67,8 @@ echo "</pre>"; ?>
 <script type="text/template" id="img-template">
 
 	{{#each images}}
-		<div class="dragdrop">
-			<img src="uploads/images/{{photo}}.{{extension}}" class="dragable" alt="" style="left: {{x}}; top: {{y}}">
+		<div class="dragdrop" style="left: {{x}}; top: {{y}};">
+			<img src="uploads/images/{{photo}}.{{extension}}" class="dragable" alt="{{photo}}">
 		</div>
 	{{/each}}
   

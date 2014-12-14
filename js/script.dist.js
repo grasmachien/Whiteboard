@@ -171,6 +171,14 @@ module.exports = (function(){
 			boardJSONGet();
 		}
 
+		if ($(searchForm)) {
+			searchResult();
+		};
+
+	}
+
+	function searchResult(){
+		console.log("search activated!!");
 	}
 
 		function boardJSONGet() {
@@ -276,13 +284,12 @@ module.exports = (function(){
     window.removeEventListener('mouseup', this._mouseupHandler);
     // console.log(event.y);
     // console.log(document.URL);
-    console.log(this.el.offsetTop);
     $.post( "index.php?page=postxy", { 
 			x: this.el.offsetLeft,
 			y: this.el.offsetTop
 		})
 		.done(function( data ) {
-	    console.log(data);
+	    // console.log(data);
 	  }
 	)};
     // $.post ( { document:URL, 

@@ -200,7 +200,6 @@ body {
   float: left;
   position: relative;
   z-index: 999;
-  display: none;
 }
 .sidebar a {
   color: white;
@@ -472,6 +471,7 @@ body {
 }
 .dragdrop {
   position: absolute;
+  left: 200px;
 }
 .dragdrop html {
   -moz-box-sizing: border-box;

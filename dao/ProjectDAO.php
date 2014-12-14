@@ -235,7 +235,7 @@ class ProjectDAO extends DAO {
       public function updatexy($data){
 
         $sql = 'UPDATE whiteboard_img
-                    SET x = :x AND y = :y';
+                    SET x = :x , y = :y WHERE id = 10';
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(':x', $data['x']);
         $stmt->bindValue(':y', $data['y']);

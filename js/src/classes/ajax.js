@@ -9,6 +9,14 @@ module.exports = (function(){
 			boardJSONGet();
 		}
 
+		if ($(searchForm)) {
+			searchResult();
+		};
+
+	}
+
+	function searchResult(){
+		console.log("search activated!!");
 	}
 
 		function boardJSONGet() {
