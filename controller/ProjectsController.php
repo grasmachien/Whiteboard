@@ -274,24 +274,25 @@ public function _uploadimage(){
 
 		}
 
-		public function postxy()
-		{
-			// $confirm = true;
-			// $errors = array();
-			// $data = $_POST;
-			// $confirm = false;
+		public function postxy(){
 
-			// if ($data) {
-			// 	$updated_xy = $this->projectDAO->updatexy($data);
-			// }
 
 		$confirm = true;
-  	$errors = array();
-  	$data = $_POST;
-  	$confirm = false;
+	  	$errors = array();
+	  	$data = $_POST;
+	  	$confirm = false;
 
   	if($data){
-	  	$inserted_post = $this->projectDAO->updatexy($data);
+  		$this->trace($data);
+
+  		if($data['tabel'] == "whiteboard_img"){
+  			$inserted_post = $this->projectDAO->updatexy($data);
+  		}else if($data['tabel'] == "whiteboard_tekst"){
+			$inserted_post = $this->projectDAO->updatexytxt($data);
+  		}else if($data['tabel'] == "whiteboard_video"){
+			$inserted_post = $this->projectDAO->updatexyvid($data);
+  		}
+	  	
 			if(!$inserted_post){
 				// $errors = $this->postDAO->getValidationErrors($data);
         // header('Content-Type: application/json');
@@ -308,8 +309,8 @@ public function _uploadimage(){
 			}
   	}
 
-  	$this->set("data", $data);
-  	$this->set("confirm", $confirm);
+	  	$this->set("data", $data);
+	  	$this->set("confirm", $confirm);
 		$this->set("errors", $errors);
 
   }

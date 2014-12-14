@@ -1,6 +1,4 @@
-<?php echo "<pre>";
-var_dump($_POST);
-echo "</pre>"; ?>
+
 <div class="sidebar">
 	<header><a href="index.php"><h1>Whiteboard</h1></a></header>
 	<ul>
@@ -48,7 +46,7 @@ echo "</pre>"; ?>
 <script type="text/template" id="postit-template">
 
 	{{#each postits}}
-		<div class="postit dragdrop">
+		<div class="postit dragdrop" style="left:{{x}}px; top:{{y}}px;" data-id="{{id}}" data-tabel="whiteboard_tekst">
 			<p class="board-tekst">{{tekst}}</p>
 		</div>
 	{{/each}}
@@ -58,7 +56,7 @@ echo "</pre>"; ?>
 <script type="text/template" id="video-template">
 
 	{{#each video}}
-		<div class="dragdrop">
+		<div class="dragdrop" style="left:{{x}}px; top:{{y}}px;" data-id="{{id}}" data-tabel="whiteboard_video">
 			<video width="400" height="220" controls=true style="left:{{x}}px;">
 				<source src="uploads/{{video}}" type="video/mp4">
 			</video>
@@ -70,7 +68,7 @@ echo "</pre>"; ?>
 <script type="text/template" id="img-template">
 
 	{{#each images}}
-		<div class="dragdrop">
+		<div class="dragdrop" style="left:{{x}}px; top:{{y}}px;" data-id="{{id}}" data-tabel="whiteboard_img">
 			<img src="uploads/images/{{photo}}.{{extension}}" class="dragable" alt="" style="left: {{x}}; top: {{y}}">
 		</div>
 	{{/each}}
