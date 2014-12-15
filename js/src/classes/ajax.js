@@ -3,6 +3,8 @@ module.exports = (function(){
 	var DragDrop = require('../classes/DragDrop');
 	var url = getUrlVars()["name"];
 	var postitbtn = document.querySelector('.postitbtn');
+	var videobtn = document.querySelector('.videobtn');
+	var imgbtn = document.querySelector('.imgbtn');
 
 	function Ajax() {
 
@@ -11,6 +13,7 @@ module.exports = (function(){
 			boardJSONGet();
 		}
 
+		//AJAX POSTIT
 
 		if(postitbtn){
 			postitbtn.addEventListener('click', function(){
@@ -33,35 +36,44 @@ module.exports = (function(){
 			    $('.img-list').empty();
 
 			    document.querySelector('.txtarea').value = " ";
-
-
-			    var uploadblock = document.getElementById('pop');
-				var form = document.getElementById('uploadwrap'); 
-				var label = document.querySelector('#name');
-
-				uploadblock.classList.remove("uploadblock");
-				form.classList.remove("animform");
-				uploadblock.classList.add("hidden");
-
-				var txtupload = document.querySelector('#tekstupload');
-				var videoupload = document.querySelector('#videoupload');
-				var imageupload = document.querySelector('#imageupload');
-				var persoonupload = document.querySelector('#persoonupload');
-
-					txtupload.classList.add("hideform");
-					videoupload.classList.add("hideform");
-					imageupload.classList.add("hideform");
-					persoonupload.classList.add("hideform");
-
+			    closeWindow();
 			    boardJSONGet();
-
 
 			  });
 
+			});
+		}
+
+		//AJAX VIDEO
+
+		if(imgbtn){
+			imgbtn.addEventListener('click', function(){
+				event.preventDefault();
+
+				var projectnaamhash = getUrlVars()["name"];
+				projectnaam = projectnaamhash.substring(0, projectnaamhash.length - 1);
+
+				var img = document.querySelector('.imgupload').files[0];
+				var formData = new FormData();
+				formData.append("CustomField", "This is some extra data");
+				formData.append("file", img);
+
+				$.ajax({
+				  url: 'index.php?page=uploadimg',
+				  data: formData,
+				  processData: false,
+				  contentType: false,
+				  mimeType: "multipart/form-data",
+				  type: 'POST',
+				  success: function(data){
+				    alert(data);
+				  }
+				});	
 
 			});
 		}
-			var searchform = document.getElementById("searchForm");
+
+		var searchform = document.getElementById("searchForm");
 
 		if (searchform) {
 			searchResult();
@@ -93,7 +105,7 @@ module.exports = (function(){
 					otherprojects = updatedResultDiv.querySelectorAll(".project-th");
 					resultDiv.parentNode.replaceChild(updatedResultDiv, resultDiv);	
 					
-					console.log(resultDiv);
+			
 					
 				}
 				req.open('get', searchForm.getAttribute('action') + '&q=' + searchInput.value, true);
@@ -109,10 +121,9 @@ module.exports = (function(){
 		function boardJSONGet() {
 
 			$.get( "index.php?page=invites&name="+ url, function( posts ) {
-				console.log(posts);
 
 			//users template
-			console.log(posts);
+
 			var templateSrc = $('#users-template').text();
 			var template = Handlebars.compile( templateSrc );
 
@@ -155,6 +166,28 @@ module.exports = (function(){
 		        vars[key] = value;
 		    });
 		    return vars;
+		}
+
+		function closeWindow(){
+
+			var uploadblock = document.getElementById('pop');
+				var form = document.getElementById('uploadwrap'); 
+				var label = document.querySelector('#name');
+
+				uploadblock.classList.remove("uploadblock");
+				form.classList.remove("animform");
+				uploadblock.classList.add("hidden");
+
+				var txtupload = document.querySelector('#tekstupload');
+				var videoupload = document.querySelector('#videoupload');
+				var imageupload = document.querySelector('#imageupload');
+				var persoonupload = document.querySelector('#persoonupload');
+
+					txtupload.classList.add("hideform");
+					videoupload.classList.add("hideform");
+					imageupload.classList.add("hideform");
+					persoonupload.classList.add("hideform");
+
 		}
 
 	return Ajax;

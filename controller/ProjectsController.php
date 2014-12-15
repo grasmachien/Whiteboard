@@ -396,6 +396,25 @@ public function _uploadimage(){
 
   	}
 
+  	public function uploadimg(){
+  		$data = $_POST;
+
+
+		$this->trace($data);
+		//move_uploaded_file($data['file']["tmp_name"], WWW_ROOT."uploads/images".DS.$data["file"]["name"]);
+  		// $image = $this->projectDAO->insertimage(array(
+				// 		"project"=>"kak",
+				// 		"photo"=>"bla",
+				// 		"extension"=>'skijt'
+				// 	));
+
+
+  		header('Content-Type: application/json');
+        echo json_encode(array('result' => true));
+        die();
+
+  	}
+
 		
 
 }

@@ -100,12 +100,12 @@
 			</fieldset>
 		</form>
 
-		<form action="" method="post" enctype="multipart/form-data" id="imageupload" class="hideform">
+		<form action="" method="post" enctype="multipart/form-data" name="fileinfo" id="imageupload" class="hideform">
 			<fieldset>
 
 				<label for="videofile" class="label">Image</label><br/>
 				<input type="file" name="image" class="imgupload" required class="addvideo">
-				<input type="submit" name="action" id="btnsubmit" value="plaats img"/>
+				<input type="submit" name="action" class="imgbtn" id="btnsubmit" value="plaats img"/>
 
 			</fieldset>
 		</form>
@@ -116,8 +116,8 @@
 				<label for="name" class="label">Naam filmpje</label><br/>
 				<input type="text" required pattern="[A-Za-z].{4,}" class="name" name="name" placeholder="name" value=""/> <br/>
 				<label for="videofile" class="label">Video (MP4, max 10MB)</label><br/>
-				<input type="file" class="imgupload" name="videofile" required class="addvideo">
-				<input type="submit" name="action" id="btnsubmit" value="plaats video"/>
+				<input type="file" class="vidupload" name="videofile" required class="addvideo">
+				<input type="submit" name="action" class="videobtn" id="btnsubmit" value="plaats video"/>
 
 			</fieldset>
 		</form>
