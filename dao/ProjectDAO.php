@@ -154,17 +154,14 @@ class ProjectDAO extends DAO {
 		return false;
 	}
 
-	public function addnew($name,$video){
-        return $this->newVideo($name,$video);
-    }
 
-    public function newVideo($name,$video){
+    public function newVideo($data){
             $sql = "INSERT INTO whiteboard_video(name,video,project, x, y)
                     VALUES(:name,:video,:project, :x, :y)";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->bindValue(":name",$name);
-            $stmt->bindValue(":video",$video);
-            $stmt->bindValue(":project",$_GET["name"]);
+            $stmt->bindValue(":name",$data['name']);
+            $stmt->bindValue(":video",$data['filename']);
+            $stmt->bindValue(":project",$data['project']);
             $stmt->bindValue(":x","200");
             $stmt->bindValue(":y","200");
             if($stmt->execute()){

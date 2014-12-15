@@ -113,7 +113,7 @@
 
 		<form action="" method="post" enctype="multipart/form-data" id="videoupload" class="hideform">
 			<fieldset>
-
+				<input type="hidden" value="<?php echo $_GET['name'] ?>" name="project"/>
 				<label for="name" class="label">Naam filmpje</label><br/>
 				<input type="text" required pattern="[A-Za-z].{4,}" class="name" name="name" placeholder="name" value=""/> <br/>
 				<label for="videofile" class="label">Video (MP4, max 10MB)</label><br/>

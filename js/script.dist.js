@@ -202,13 +202,40 @@ module.exports = (function(){
 			});
 		}
 
-		//AJAX VIDEO
+		//AJAX IMAGE
 
 		$('#imageupload').submit(function(event){
 			event.preventDefault();
 
 			$.ajax({
 			  url: 'index.php?page=uploadimg',
+			  type: 'POST',
+			  data: new FormData(this),
+			  processData: false,
+			  contentType: false,
+			  cache: false,
+			  success: function(data){
+			    // alert(data);
+
+			    $('.postit-list').empty();
+			    $('.users-list').empty();
+			    $('.video-list').empty();
+			    $('.img-list').empty();
+
+			    closeWindow();
+			    boardJSONGet();
+			  }
+			});	
+
+		});
+
+		//AJAX VIDEO
+
+		$('#videoupload').submit(function(event){
+			event.preventDefault();
+
+			$.ajax({
+			  url: 'index.php?page=uploadvideo',
 			  type: 'POST',
 			  data: new FormData(this),
 			  processData: false,

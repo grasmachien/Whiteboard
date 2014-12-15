@@ -52,6 +52,10 @@ $routes = array(
         'controller' => 'Projects',
         'action' => 'uploadimg'
     ),
+    'uploadvideo' => array(
+        'controller' => 'Projects',
+        'action' => 'uploadvideo'
+    ),
 );
 
 if(empty($_GET['page'])) {

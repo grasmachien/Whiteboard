@@ -235,8 +235,6 @@ class ProjectsController extends Controller {
 		}
 }
 
-
-
 public function _uploadimage(){
 
 	if (!empty($_FILES['image'])) {
@@ -413,6 +411,39 @@ public function _uploadimage(){
 				"photo"=>$name,
 				"extension"=>$extension
 			));
+
+  		}
+
+  	}
+
+  	public function uploadvideo(){
+  		$data = $_POST;
+
+  		if($_POST['action'] == 'plaats video'){
+
+  			if(!empty($_POST["name"])
+			&& !empty($_FILES["videofile"])){
+
+			$type = ($_FILES["videofile"]["type"]);
+			$path = $_FILES["videofile"]["tmp_name"];
+			$size = filesize($path);
+			$project = $_POST['project'];
+
+			if($type == "video/mp4" && $size <=10000000){
+
+				$filename = $_POST["name"].".mp4";
+				$newPath = WWW_ROOT.'uploads'.DS.$filename;
+
+				move_uploaded_file($path,$newPath);
+
+				$image = $this->projectDAO->newVideo(array(
+				"project"=>$_POST['project'] ,
+				"filename"=>$filename,
+				"name"=>$_POST["name"]
+			));
+			}
+		}
+
 
   		}
 
