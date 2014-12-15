@@ -123,15 +123,15 @@
 		// if(btnsubmit) {
 		// 	btnsubmit.addEventListener("click", function(){
 
-		// 		if(document.querySelector(".name").value === ""){
+				// if(document.querySelector(".name").value === ""){
 				    
-		// 			var nameinput = document.querySelector('.name');
-		// 			nameinput.classList.add("error");
+				// 	var nameinput = document.querySelector('.name');
+				// 	nameinput.classList.add("error");
 				
-		// 			window.setTimeout(function() {
- 	// 	 	 			nameinput.classList.remove("error");
-		// 			}, 500);
-		// 		}
+				// 	window.setTimeout(function() {
+ 		 // 	 			nameinput.classList.remove("error");
+				// 	}, 500);
+				// }
 
 		// 		if(document.querySelector(".addvideo").value === ""){
 				    

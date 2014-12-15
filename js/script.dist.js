@@ -124,15 +124,15 @@
 		// if(btnsubmit) {
 		// 	btnsubmit.addEventListener("click", function(){
 
-		// 		if(document.querySelector(".name").value === ""){
+				// if(document.querySelector(".name").value === ""){
 				    
-		// 			var nameinput = document.querySelector('.name');
-		// 			nameinput.classList.add("error");
+				// 	var nameinput = document.querySelector('.name');
+				// 	nameinput.classList.add("error");
 				
-		// 			window.setTimeout(function() {
- 	// 	 	 			nameinput.classList.remove("error");
-		// 			}, 500);
-		// 		}
+				// 	window.setTimeout(function() {
+ 		 // 	 			nameinput.classList.remove("error");
+				// 	}, 500);
+				// }
 
 		// 		if(document.querySelector(".addvideo").value === ""){
 				    
@@ -181,6 +181,16 @@ module.exports = (function(){
 				var projectnaamhash = getUrlVars()["name"];
 				projectnaam = projectnaamhash.substring(0, projectnaamhash.length - 1);
 
+				if(document.querySelector(".txtarea").value === ""){
+				    
+					var nameinput = document.querySelector('.txtarea');
+					nameinput.classList.add("error");
+				
+					window.setTimeout(function() {
+ 		 	 			nameinput.classList.remove("error");
+					}, 500);
+				}else{
+
 				$.post( "index.php?page=postpostit", { 
 					tekst: postitinput,
 					project: projectnaam
@@ -198,6 +208,7 @@ module.exports = (function(){
 			    boardJSONGet();
 
 			  });
+			}
 
 			});
 		}

@@ -95,6 +95,7 @@
 					
 				<label for="name" class="label" id="name">Post-it</label><br/>
 				<textarea required pattern="[A-Za-z].{4,}" name="nieuwtekst" class="txtarea" rows="10" cols="50" value="" placeholder="plaats hier je tekst"></textarea>
+				<input type="hidden" value="<?php echo $_GET['name'] ?>" name="project"/>
 				<input type="submit" name="action" class="postitbtn" id="btnsubmit" value="plaats postit"/>
 
 			</fieldset>

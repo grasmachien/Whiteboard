@@ -63,10 +63,3 @@
 		?>
 	</ul>
 </div>
-<?php 
-if(!empty($_GET["action"]) && $_GET["action"] == "addNote") {
-			$this->whiteboardDAO->addNote($_POST["tekst"], $_GET["boardid"], $_POST["xpos"], $_POST["ypos"]);
-		}
-
-
- ?>

@@ -310,6 +310,7 @@ class ProjectDAO extends DAO {
 				WHERE (`name` LIKE :naam)";
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->bindValue(":naam", "%".$naam."%");
+
 		$stmt->execute();
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
