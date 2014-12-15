@@ -104,7 +104,8 @@
 			<fieldset>
 
 				<label for="videofile" class="label">Image</label><br/>
-				<input type="file" name="image" class="imgupload" required class="addvideo">
+				<input type="hidden" value="<?php echo $_GET['name'] ?>" name="project"/>
+				<input type="file" name="image" class="imgupload" value="" required class="addvideo">
 				<input type="submit" name="action" class="imgbtn" id="btnsubmit" value="plaats img"/>
 
 			</fieldset>

@@ -399,22 +399,23 @@ public function _uploadimage(){
   	public function uploadimg(){
   		$data = $_POST;
 
+  		if($_POST['action'] == 'plaats img'){
+  			
+  			$name = preg_replace("/\\.[^.\\s]{3,4}$/", "", $_FILES["image"]["name"]);
+			$extension = explode($name.".", $_FILES["image"]["name"])[1];
 
-		$this->trace($data);
-		//move_uploaded_file($data['file']["tmp_name"], WWW_ROOT."uploads/images".DS.$data["file"]["name"]);
-  		// $image = $this->projectDAO->insertimage(array(
-				// 		"project"=>"kak",
-				// 		"photo"=>"bla",
-				// 		"extension"=>'skijt'
-				// 	));
+			$imageresize = new Eventviva\ImageResize($_FILES['image']['tmp_name']);
+			$imageresize->save(WWW_ROOT."uploads/images".DS.$name.".".$extension);
 
+			move_uploaded_file($_FILES['image']["tmp_name"], WWW_ROOT."uploads/images".DS.$_FILES["image"]["name"]);
+			$image = $this->projectDAO->insertimage(array(
+				"project"=>$_POST['project'] ,
+				"photo"=>$name,
+				"extension"=>$extension
+			));
 
-  		header('Content-Type: application/json');
-        echo json_encode(array('result' => true));
-        die();
+  		}
 
   	}
-
-		
 
 }

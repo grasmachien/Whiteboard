@@ -46,32 +46,31 @@ module.exports = (function(){
 
 		//AJAX VIDEO
 
-		if(imgbtn){
-			imgbtn.addEventListener('click', function(){
-				event.preventDefault();
+		$('#imageupload').submit(function(event){
+			event.preventDefault();
 
-				var projectnaamhash = getUrlVars()["name"];
-				projectnaam = projectnaamhash.substring(0, projectnaamhash.length - 1);
+			$.ajax({
+			  url: 'index.php?page=uploadimg',
+			  type: 'POST',
+			  data: new FormData(this),
+			  processData: false,
+			  contentType: false,
+			  cache: false,
+			  success: function(data){
+			    // alert(data);
 
-				var img = document.querySelector('.imgupload').files[0];
-				var formData = new FormData();
-				formData.append("CustomField", "This is some extra data");
-				formData.append("file", img);
+			    $('.postit-list').empty();
+			    $('.users-list').empty();
+			    $('.video-list').empty();
+			    $('.img-list').empty();
 
-				$.ajax({
-				  url: 'index.php?page=uploadimg',
-				  data: formData,
-				  processData: false,
-				  contentType: false,
-				  mimeType: "multipart/form-data",
-				  type: 'POST',
-				  success: function(data){
-				    alert(data);
-				  }
-				});	
+			    closeWindow();
+			    boardJSONGet();
+			  }
+			});	
 
-			});
-		}
+		});
+
 
 		var searchform = document.getElementById("searchForm");
 
