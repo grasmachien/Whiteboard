@@ -351,6 +351,51 @@ public function _uploadimage(){
 
   	}
 
+  	public function deletepostit(){
+
+		$confirm = true;
+	  	$errors = array();
+	  	$data = $_POST;
+	  	$confirm = false;
+
+	  	if($data){
+
+	  // 		$insertedtekst = $this->projectDAO->inserttekst(array(
+			// 'nieuwtekst' => $_POST['tekst']
+			// ));
+
+			
+
+			if($data['tabel'] == "whiteboard_img"){
+	  			$inserted_post = $this->projectDAO->deleteimg($data);
+	  		}else if($data['tabel'] == "whiteboard_tekst"){
+				$inserted_post = $this->projectDAO->deletetekst($data);
+	  		}else if($data['tabel'] == "whiteboard_video"){
+				$inserted_post = $this->projectDAO->deletevideo($data);
+	  		}
+		  	
+			if(!$inserted_post){
+				// $errors = $this->postDAO->getValidationErrors($data);
+		        // header('Content-Type: application/json');
+		        // echo json_encode(array('result' => false, 'errors' => $errors));
+		        // die();
+			}else{
+        
+				$confirm = true;
+				// $this->redirect("index.php?page=posts");
+	        
+	        header('Content-Type: application/json');
+	        echo json_encode(array('result' => true));
+	        die();
+				}
+	  	}
+
+	  	$this->set("data", $data);
+	  	$this->set("confirm", $confirm);
+		$this->set("errors", $errors);
+
+  	}
+
 		
 
 }

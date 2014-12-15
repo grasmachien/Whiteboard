@@ -165,22 +165,19 @@ module.exports = (function(){
 
 	function Ajax() {
 
+
 		if(getUrlVars()["page"] === "board"){
 			boardJSONGet();
 		}
 
-		console.log(postitbtn);
+
 		if(postitbtn){
 			postitbtn.addEventListener('click', function(){
 				event.preventDefault();
-				console.log('klik');
 
 				var postitinput = document.querySelector('.txtarea').value;
 				var projectnaamhash = getUrlVars()["name"];
-
 				projectnaam = projectnaamhash.substring(0, projectnaamhash.length - 1);
-
-				console.log(projectnaam);
 
 				$.post( "index.php?page=postpostit", { 
 					tekst: postitinput,
@@ -193,6 +190,9 @@ module.exports = (function(){
 			    $('.users-list').empty();
 			    $('.video-list').empty();
 			    $('.img-list').empty();
+
+			    document.querySelector('.txtarea').value = " ";
+
 
 			    var uploadblock = document.getElementById('pop');
 				var form = document.getElementById('uploadwrap'); 
@@ -213,6 +213,7 @@ module.exports = (function(){
 					persoonupload.classList.add("hideform");
 
 			    boardJSONGet();
+
 
 			  });
 
@@ -284,10 +285,16 @@ module.exports = (function(){
 	var hoogte = 0;
 	function Dragdrop() {
 		var elements = document.querySelectorAll(".dragdrop");
+		var deletes = document.querySelectorAll(".deletebtn");
 
 		for (var i = 0; i < elements.length; i++) {
 			var element = elements[i];
 			element = new DraggableBlock(element);
+		}
+
+		for (var j = 0; j < deletes.length; j++) {
+			var deletebtn = deletes[j];
+			deletebtn = new Deletepost(deletebtn);
 		}
 
 	}
@@ -298,6 +305,30 @@ module.exports = (function(){
 		this.el.addEventListener('mousedown', this.mouseDownHandler.bind(this));
 
 	}
+
+	function Deletepost(deletebtn){
+
+		this.del = deletebtn;
+		this.del.addEventListener('click', this.clickDeleteHandler.bind(this));	
+
+	}
+
+	Deletepost.prototype.clickDeleteHandler = function(event) {
+
+		$.post( "index.php?page=deletepostit", { 
+			id: this.del.dataset.id,
+			tabel: this.del.dataset.tabel
+		})
+		.done(function( data ) {
+	    console.log(data);
+
+	    });
+
+	    var postit = this.del.parentNode;
+	    console.log(postit);
+
+	    $(postit).remove();
+	};
 
 	DraggableBlock.prototype.mouseDownHandler = function(event) {
 		event.preventDefault();

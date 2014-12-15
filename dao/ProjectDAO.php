@@ -219,6 +219,42 @@ class ProjectDAO extends DAO {
         return false;
     }
 
+    public function deletetekst($data){
+
+        $sql = "DELETE FROM `whiteboard_tekst`
+                WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':id', $data['id']);
+        if($stmt->execute()){
+            return true;
+        }
+        return false;
+    }
+
+    public function deleteimg($data){
+
+        $sql = "DELETE FROM `whiteboard_img`
+                WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':id', $data['id']);
+        if($stmt->execute()){
+            return true;
+        }
+        return false;
+    }
+
+    public function deletevideo($data){
+
+        $sql = "DELETE FROM `whiteboard_video`
+                WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':id', $data['id']);
+        if($stmt->execute()){
+            return true;
+        }
+        return false;
+    }
+
      public function updateInvite($id){
 
         $sql = 'UPDATE whiteboard_invites

@@ -126,6 +126,16 @@ body {
   padding: 10px 0;
 }
 
+.deletebtn {
+  width: 39px;
+  height: 39px;
+  background: url("../../img/close.png");
+  background-repeat: no-repeat;
+  position: absolute;
+  margin-left: -40px;
+  cursor: pointer;
+}
+
 .label {
   font-family: "Mohave", sans-serif;
   text-align: center;

@@ -6,22 +6,19 @@ module.exports = (function(){
 
 	function Ajax() {
 
+
 		if(getUrlVars()["page"] === "board"){
 			boardJSONGet();
 		}
 
-		console.log(postitbtn);
+
 		if(postitbtn){
 			postitbtn.addEventListener('click', function(){
 				event.preventDefault();
-				console.log('klik');
 
 				var postitinput = document.querySelector('.txtarea').value;
 				var projectnaamhash = getUrlVars()["name"];
-
 				projectnaam = projectnaamhash.substring(0, projectnaamhash.length - 1);
-
-				console.log(projectnaam);
 
 				$.post( "index.php?page=postpostit", { 
 					tekst: postitinput,
@@ -34,6 +31,9 @@ module.exports = (function(){
 			    $('.users-list').empty();
 			    $('.video-list').empty();
 			    $('.img-list').empty();
+
+			    document.querySelector('.txtarea').value = " ";
+
 
 			    var uploadblock = document.getElementById('pop');
 				var form = document.getElementById('uploadwrap'); 
@@ -54,6 +54,7 @@ module.exports = (function(){
 					persoonupload.classList.add("hideform");
 
 			    boardJSONGet();
+
 
 			  });
 

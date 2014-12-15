@@ -49,6 +49,7 @@
 
 	{{#each postits}}
 		<div class="postit dragdrop" style="left:{{x}}px; top:{{y}}px;" data-id="{{id}}" data-tabel="whiteboard_tekst">
+			<span class="deletebtn" data-id="{{id}}" data-tabel="whiteboard_tekst"></span>
 			<p class="board-tekst">{{tekst}}</p>
 		</div>
 	{{/each}}
@@ -59,6 +60,7 @@
 
 	{{#each video}}
 		<div class="dragdrop" style="left:{{x}}px; top:{{y}}px;" data-id="{{id}}" data-tabel="whiteboard_video">
+		<span class="deletebtn" data-id="{{id}}" data-tabel="whiteboard_video"></span>
 			<video width="400" height="220" controls=true style="left:{{x}}px;">
 				<source src="uploads/{{video}}" type="video/mp4">
 			</video>
@@ -71,6 +73,7 @@
 
 	{{#each images}}
 		<div class="dragdrop" style="left:{{x}}px; top:{{y}}px;" data-id="{{id}}" data-tabel="whiteboard_img">
+		<span class="deletebtn" data-id="{{id}}" data-tabel="whiteboard_img"></span>
 			<img src="uploads/images/{{photo}}.{{extension}}" class="dragable" alt="" style="left: {{x}}; top: {{y}}">
 		</div>
 	{{/each}}

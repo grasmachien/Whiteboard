@@ -44,6 +44,10 @@ $routes = array(
         'controller' => 'Projects',
         'action' => 'postpostit'
     ),
+    'deletepostit' => array(
+        'controller' => 'Projects',
+        'action' => 'deletepostit'
+    ),
 );
 
 if(empty($_GET['page'])) {
