@@ -17,7 +17,8 @@
 </div>
 
 <div class="projecten-overzicht">
-	<ul class="projecten-overzicht">
+	<ul class="projecten">
+	<div class="result"></div>
 	
 	<?php if (!empty($searchResult)) { 
 		foreach ($searchResult as $result) { ?>
@@ -45,7 +46,7 @@
 					<li class="project-th">
 					<div class="imgproject">
 						<a href="index.php?page=board&amp;name=<?php echo $project['name']; ?>">
-							<img class="projectimg" src="uploads/<?php echo $project['photo']."_th.". $project['extension']; ?>" alt="">
+							<img class="projectimg" src="uploads/<?php echo $project['photo']."_th.". $project['extension']; ?>" alt="<?php echo $project['photo']; ?>">
 							
 						</a>
 					</div>
@@ -58,3 +59,10 @@
 		?>
 	</ul>
 </div>
+<?php 
+if(!empty($_GET["action"]) && $_GET["action"] == "addNote") {
+			$this->whiteboardDAO->addNote($_POST["tekst"], $_GET["boardid"], $_POST["xpos"], $_POST["ypos"]);
+		}
+
+
+ ?>

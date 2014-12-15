@@ -125,13 +125,14 @@ class ProjectDAO extends DAO {
 
 	public function inserttekst($data) {
 		if(empty($errors)) {
-			$sql = "INSERT INTO `whiteboard_tekst` (`tekst`, `project`) VALUES (:tekst, :project)";
+			$sql = "INSERT INTO `whiteboard_tekst` (`tekst`, `project`, `x`, `y`) VALUES (:tekst, :project, :x, :y)";
 			$stmt = $this->pdo->prepare($sql);
 			$stmt->bindValue(':tekst', $data['nieuwtekst']);
 			$stmt->bindValue(':project', $_GET["name"]);
+			$stmt->bindValue(":x","200");
+      		$stmt->bindValue(":y","200");	
 			if($stmt->execute()) {
 				
-	
 			}
 		}
 		return false;
@@ -144,8 +145,8 @@ class ProjectDAO extends DAO {
 			$stmt->bindValue(':project', $data['project']);
 			$stmt->bindValue(':photo', $data["photo"]);
 			$stmt->bindValue(':extension', $data["extension"]);
-      $stmt->bindValue(":x","200");
-      $stmt->bindValue(":y","200");			
+      		$stmt->bindValue(":x","200");
+     		$stmt->bindValue(":y","200");			
 			if($stmt->execute()) {
 				
 			}
@@ -232,13 +233,39 @@ class ProjectDAO extends DAO {
         return array();
     }
 
-      public function updatexy($data){
+  	public function updatexy($data){
 
         $sql = 'UPDATE whiteboard_img
-                    SET x = :x , y = :y WHERE id = 10';
+                    SET x = :x , y = :y
+                    WHERE id = :id';
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(':x', $data['x']);
         $stmt->bindValue(':y', $data['y']);
+        $stmt->bindValue(':id', $data['id']);
+        $stmt->execute();
+    }
+
+    public function updatexytxt($data){
+
+        $sql = 'UPDATE whiteboard_tekst
+                    SET x = :x , y = :y
+                    WHERE id = :id';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':x', $data['x']);
+        $stmt->bindValue(':y', $data['y']);
+        $stmt->bindValue(':id', $data['id']);
+        $stmt->execute();
+    }
+
+    public function updatexyvid($data){
+
+        $sql = 'UPDATE whiteboard_video
+                    SET x = :x , y = :y
+                    WHERE id = :id';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':x', $data['x']);
+        $stmt->bindValue(':y', $data['y']);
+        $stmt->bindValue(':id', $data['id']);
         $stmt->execute();
     }
 

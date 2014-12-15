@@ -9,14 +9,47 @@ module.exports = (function(){
 			boardJSONGet();
 		}
 
-		if ($(searchForm)) {
+		var searchform = document.getElementById("searchForm");
+
+		if (searchform) {
 			searchResult();
-		};
+		}
 
 	}
 
 	function searchResult(){
-		console.log("search activated!!");
+
+	var searchForm = document.getElementById('searchForm');
+		if(searchForm) {
+
+			var searchInput = searchForm.querySelector('input[type=search]');
+
+			searchForm.addEventListener('submit', doSearch);
+			searchInput.addEventListener('input', doSearch);
+			
+			function doSearch(event) {
+				event.preventDefault();
+				var req = new XMLHttpRequest();
+				req.onload = function() {
+					
+					var result = document.createElement('div');
+					
+					result.innerHTML = req.responseText;
+
+					var updatedResultDiv = result.querySelector('.projecten');
+					
+					var resultDiv = document.querySelector(".result");
+					otherprojects = document.querySelectorAll(".project-th");
+					resultDiv.parentNode.replaceChild(updatedResultDiv, resultDiv);
+					console.log(resultDiv);
+					
+				}
+				req.open('get', searchForm.getAttribute('action') + '&q=' + searchInput.value, true);
+				req.setRequestHeader('X_REQUESTED_WITH', 'xmlhttprequest');
+				req.send();
+			}
+		}
+
 	}
 
 		function boardJSONGet() {
@@ -25,7 +58,7 @@ module.exports = (function(){
 				console.log(posts);
 
 			//users template
-
+			console.log(posts);
 			var templateSrc = $('#users-template').text();
 			var template = Handlebars.compile( templateSrc );
 
@@ -55,8 +88,6 @@ module.exports = (function(){
 
 			var imgResult = imgTemplate(posts);		
 			$('.img-list').append($(imgResult));
-
-			console.log('ik verlaat ajax');
 
 			new DragDrop();
 

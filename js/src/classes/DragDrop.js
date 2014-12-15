@@ -30,7 +30,6 @@ module.exports = (function(){
 	};
 
 	DraggableBlock.prototype.mousemoveHandler = function(event) {
-		    // this.el.style.zIndex = hoogte;
     		this.el.style.zIndex = hoogte;
     		hoogte ++;
         this.el.style.left = (event.pageX - this.offsetX) + "px";
@@ -39,31 +38,22 @@ module.exports = (function(){
 	};
 
 	DraggableBlock.prototype.mouseupHandler = function(event) {
-		// console.log(this.el);
 		window.removeEventListener('mousemove', this._mousemoveHandler);
     window.removeEventListener('mouseup', this._mouseupHandler);
-    // console.log(event.y);
-    // console.log(document.URL);
+    console.log(this.el.dataset);
     $.post( "index.php?page=postxy", { 
+    	
 			x: this.el.offsetLeft,
-			y: this.el.offsetTop
+			y: this.el.offsetTop,
+			id: this.el.dataset.id,
+			tabel: this.el.dataset.tabel
 		})
 		.done(function( data ) {
-	    // console.log(data);
+	    console.log(data);
+
 	  }
 	)};
-    // $.post ( { document:URL, 
-    // 	{
-    // 		x : event.x,
-    // 		y : event.y
-    // 	}
-    // )
-    // .done(function (data){
-    // 	console.log("data loaded:");
-    // });
 
-    // })
-	
 
 	return Dragdrop;
 

@@ -89,7 +89,6 @@
 
 				var uploadblock = document.getElementById('pop');
 				var form = document.getElementById('uploadwrap'); 
-				var label = document.querySelector('#name');
 
 				uploadblock.classList.remove("uploadblock");
 				form.classList.remove("animform");
@@ -171,14 +170,47 @@ module.exports = (function(){
 			boardJSONGet();
 		}
 
-		if ($(searchForm)) {
+		var searchform = document.getElementById("searchForm");
+
+		if (searchform) {
 			searchResult();
-		};
+		}
 
 	}
 
 	function searchResult(){
-		console.log("search activated!!");
+
+	var searchForm = document.getElementById('searchForm');
+		if(searchForm) {
+
+			var searchInput = searchForm.querySelector('input[type=search]');
+
+			searchForm.addEventListener('submit', doSearch);
+			searchInput.addEventListener('input', doSearch);
+			
+			function doSearch(event) {
+				event.preventDefault();
+				var req = new XMLHttpRequest();
+				req.onload = function() {
+					
+					var result = document.createElement('div');
+					
+					result.innerHTML = req.responseText;
+
+					var updatedResultDiv = result.querySelector('.projecten');
+					
+					var resultDiv = document.querySelector(".result");
+					otherprojects = document.querySelectorAll(".project-th");
+					resultDiv.parentNode.replaceChild(updatedResultDiv, resultDiv);
+					console.log(resultDiv);
+					
+				}
+				req.open('get', searchForm.getAttribute('action') + '&q=' + searchInput.value, true);
+				req.setRequestHeader('X_REQUESTED_WITH', 'xmlhttprequest');
+				req.send();
+			}
+		}
+
 	}
 
 		function boardJSONGet() {
@@ -187,7 +219,7 @@ module.exports = (function(){
 				console.log(posts);
 
 			//users template
-
+			console.log(posts);
 			var templateSrc = $('#users-template').text();
 			var template = Handlebars.compile( templateSrc );
 
@@ -217,8 +249,6 @@ module.exports = (function(){
 
 			var imgResult = imgTemplate(posts);		
 			$('.img-list').append($(imgResult));
-
-			console.log('ik verlaat ajax');
 
 			new DragDrop();
 
@@ -270,7 +300,6 @@ module.exports = (function(){
 	};
 
 	DraggableBlock.prototype.mousemoveHandler = function(event) {
-		    // this.el.style.zIndex = hoogte;
     		this.el.style.zIndex = hoogte;
     		hoogte ++;
         this.el.style.left = (event.pageX - this.offsetX) + "px";
@@ -279,31 +308,22 @@ module.exports = (function(){
 	};
 
 	DraggableBlock.prototype.mouseupHandler = function(event) {
-		// console.log(this.el);
 		window.removeEventListener('mousemove', this._mousemoveHandler);
     window.removeEventListener('mouseup', this._mouseupHandler);
-    // console.log(event.y);
-    // console.log(document.URL);
+    console.log(this.el.dataset);
     $.post( "index.php?page=postxy", { 
+    	
 			x: this.el.offsetLeft,
-			y: this.el.offsetTop
+			y: this.el.offsetTop,
+			id: this.el.dataset.id,
+			tabel: this.el.dataset.tabel
 		})
 		.done(function( data ) {
-	    // console.log(data);
+	    console.log(data);
+
 	  }
 	)};
-    // $.post ( { document:URL, 
-    // 	{
-    // 		x : event.x,
-    // 		y : event.y
-    // 	}
-    // )
-    // .done(function (data){
-    // 	console.log("data loaded:");
-    // });
 
-    // })
-	
 
 	return Dragdrop;
 

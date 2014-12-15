@@ -88,7 +88,6 @@
 
 				var uploadblock = document.getElementById('pop');
 				var form = document.getElementById('uploadwrap'); 
-				var label = document.querySelector('#name');
 
 				uploadblock.classList.remove("uploadblock");
 				form.classList.remove("animform");
