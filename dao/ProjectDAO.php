@@ -127,8 +127,8 @@ class ProjectDAO extends DAO {
 		if(empty($errors)) {
 			$sql = "INSERT INTO `whiteboard_tekst` (`tekst`, `project`, `x`, `y`) VALUES (:tekst, :project, :x, :y)";
 			$stmt = $this->pdo->prepare($sql);
-			$stmt->bindValue(':tekst', $data['nieuwtekst']);
-			$stmt->bindValue(':project', $_GET["name"]);
+			$stmt->bindValue(':tekst', $data['tekst']);
+			$stmt->bindValue(':project', $data['project']);
 			$stmt->bindValue(":x","200");
       		$stmt->bindValue(":y","200");	
 			if($stmt->execute()) {
@@ -213,6 +213,42 @@ class ProjectDAO extends DAO {
                 WHERE invite_id = :id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(':id', $id);
+        if($stmt->execute()){
+            return true;
+        }
+        return false;
+    }
+
+    public function deletetekst($data){
+
+        $sql = "DELETE FROM `whiteboard_tekst`
+                WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':id', $data['id']);
+        if($stmt->execute()){
+            return true;
+        }
+        return false;
+    }
+
+    public function deleteimg($data){
+
+        $sql = "DELETE FROM `whiteboard_img`
+                WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':id', $data['id']);
+        if($stmt->execute()){
+            return true;
+        }
+        return false;
+    }
+
+    public function deletevideo($data){
+
+        $sql = "DELETE FROM `whiteboard_video`
+                WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':id', $data['id']);
         if($stmt->execute()){
             return true;
         }

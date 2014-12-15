@@ -2,14 +2,66 @@ module.exports = (function(){
 
 	var DragDrop = require('../classes/DragDrop');
 	var url = getUrlVars()["name"];
+	var postitbtn = document.querySelector('.postitbtn');
 
 	function Ajax() {
+
 
 		if(getUrlVars()["page"] === "board"){
 			boardJSONGet();
 		}
 
-		var searchform = document.getElementById("searchForm");
+
+		if(postitbtn){
+			postitbtn.addEventListener('click', function(){
+				event.preventDefault();
+
+				var postitinput = document.querySelector('.txtarea').value;
+				var projectnaamhash = getUrlVars()["name"];
+				projectnaam = projectnaamhash.substring(0, projectnaamhash.length - 1);
+
+				$.post( "index.php?page=postpostit", { 
+					tekst: postitinput,
+					project: projectnaam
+				})
+				.done(function( data ) {
+			    console.log(data);
+
+			    $('.postit-list').empty();
+			    $('.users-list').empty();
+			    $('.video-list').empty();
+			    $('.img-list').empty();
+
+			    document.querySelector('.txtarea').value = " ";
+
+
+			    var uploadblock = document.getElementById('pop');
+				var form = document.getElementById('uploadwrap'); 
+				var label = document.querySelector('#name');
+
+				uploadblock.classList.remove("uploadblock");
+				form.classList.remove("animform");
+				uploadblock.classList.add("hidden");
+
+				var txtupload = document.querySelector('#tekstupload');
+				var videoupload = document.querySelector('#videoupload');
+				var imageupload = document.querySelector('#imageupload');
+				var persoonupload = document.querySelector('#persoonupload');
+
+					txtupload.classList.add("hideform");
+					videoupload.classList.add("hideform");
+					imageupload.classList.add("hideform");
+					persoonupload.classList.add("hideform");
+
+			    boardJSONGet();
+
+
+			  });
+
+
+			});
+		}
+			var searchform = document.getElementById("searchForm");
 
 		if (searchform) {
 			searchResult();
@@ -33,14 +85,14 @@ module.exports = (function(){
 				req.onload = function() {
 					
 					var result = document.createElement('div');
-					
 					result.innerHTML = req.responseText;
 
-					var updatedResultDiv = result.querySelector('.projecten');
+					var updatedResultDiv = result.querySelector('.projecten-overzicht');
+					// if (!updatedResultDiv.querySelectorAll(".project-th")) {};
+					var resultDiv = document.querySelector(".projecten-overzicht");
+					otherprojects = updatedResultDiv.querySelectorAll(".project-th");
+					resultDiv.parentNode.replaceChild(updatedResultDiv, resultDiv);	
 					
-					var resultDiv = document.querySelector(".result");
-					otherprojects = document.querySelectorAll(".project-th");
-					resultDiv.parentNode.replaceChild(updatedResultDiv, resultDiv);
 					console.log(resultDiv);
 					
 				}
@@ -49,6 +101,8 @@ module.exports = (function(){
 				req.send();
 			}
 		}
+
+
 
 	}
 

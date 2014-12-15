@@ -117,39 +117,36 @@
 
 				label.classList.add("labelanim");
 				txtform.focus();
-
-				
 			});
 		}
 
-		var btnsubmit = document.querySelector('#btnsubmit');
-		if(btnsubmit) {
-			btnsubmit.addEventListener("click", function(){
+		// var btnsubmit = document.querySelector('#btnsubmit');
+		// if(btnsubmit) {
+		// 	btnsubmit.addEventListener("click", function(){
 
-				if(document.querySelector(".name").value === ""){
+		// 		if(document.querySelector(".name").value === ""){
 				    
-					var nameinput = document.querySelector('.name');
-					nameinput.classList.add("error");
+		// 			var nameinput = document.querySelector('.name');
+		// 			nameinput.classList.add("error");
 				
-					window.setTimeout(function() {
- 		 	 			nameinput.classList.remove("error");
-					}, 500);
+		// 			window.setTimeout(function() {
+ 	// 	 	 			nameinput.classList.remove("error");
+		// 			}, 500);
+		// 		}
 
-				}
-
-				if(document.querySelector(".addvideo").value === ""){
+		// 		if(document.querySelector(".addvideo").value === ""){
 				    
-					var fileinput = document.querySelector('.addvideo');
-					fileinput.classList.add("error");
+		// 			var fileinput = document.querySelector('.addvideo');
+		// 			fileinput.classList.add("error");
 				
-					window.setTimeout(function() {
- 		 	 			fileinput.classList.remove("error");
-					}, 500);
+		// 			window.setTimeout(function() {
+ 	// 	 	 			fileinput.classList.remove("error");
+		// 			}, 500);
 
-				}
+		// 		}
 				
-			});
-		}
+		// 	});
+		// }
 
 	}
 
@@ -163,14 +160,66 @@ module.exports = (function(){
 
 	var DragDrop = require('../classes/DragDrop');
 	var url = getUrlVars()["name"];
+	var postitbtn = document.querySelector('.postitbtn');
 
 	function Ajax() {
+
 
 		if(getUrlVars()["page"] === "board"){
 			boardJSONGet();
 		}
 
-		var searchform = document.getElementById("searchForm");
+
+		if(postitbtn){
+			postitbtn.addEventListener('click', function(){
+				event.preventDefault();
+
+				var postitinput = document.querySelector('.txtarea').value;
+				var projectnaamhash = getUrlVars()["name"];
+				projectnaam = projectnaamhash.substring(0, projectnaamhash.length - 1);
+
+				$.post( "index.php?page=postpostit", { 
+					tekst: postitinput,
+					project: projectnaam
+				})
+				.done(function( data ) {
+			    console.log(data);
+
+			    $('.postit-list').empty();
+			    $('.users-list').empty();
+			    $('.video-list').empty();
+			    $('.img-list').empty();
+
+			    document.querySelector('.txtarea').value = " ";
+
+
+			    var uploadblock = document.getElementById('pop');
+				var form = document.getElementById('uploadwrap'); 
+				var label = document.querySelector('#name');
+
+				uploadblock.classList.remove("uploadblock");
+				form.classList.remove("animform");
+				uploadblock.classList.add("hidden");
+
+				var txtupload = document.querySelector('#tekstupload');
+				var videoupload = document.querySelector('#videoupload');
+				var imageupload = document.querySelector('#imageupload');
+				var persoonupload = document.querySelector('#persoonupload');
+
+					txtupload.classList.add("hideform");
+					videoupload.classList.add("hideform");
+					imageupload.classList.add("hideform");
+					persoonupload.classList.add("hideform");
+
+			    boardJSONGet();
+
+
+			  });
+
+
+			});
+		}
+			var searchform = document.getElementById("searchForm");
 
 		if (searchform) {
 			searchResult();
@@ -194,14 +243,14 @@ module.exports = (function(){
 				req.onload = function() {
 					
 					var result = document.createElement('div');
-					
 					result.innerHTML = req.responseText;
 
-					var updatedResultDiv = result.querySelector('.projecten');
+					var updatedResultDiv = result.querySelector('.projecten-overzicht');
+					// if (!updatedResultDiv.querySelectorAll(".project-th")) {};
+					var resultDiv = document.querySelector(".projecten-overzicht");
+					otherprojects = updatedResultDiv.querySelectorAll(".project-th");
+					resultDiv.parentNode.replaceChild(updatedResultDiv, resultDiv);	
 					
-					var resultDiv = document.querySelector(".result");
-					otherprojects = document.querySelectorAll(".project-th");
-					resultDiv.parentNode.replaceChild(updatedResultDiv, resultDiv);
 					console.log(resultDiv);
 					
 				}
@@ -210,6 +259,8 @@ module.exports = (function(){
 				req.send();
 			}
 		}
+
+
 
 	}
 
@@ -272,10 +323,16 @@ module.exports = (function(){
 	var hoogte = 0;
 	function Dragdrop() {
 		var elements = document.querySelectorAll(".dragdrop");
+		var deletes = document.querySelectorAll(".deletebtn");
 
 		for (var i = 0; i < elements.length; i++) {
 			var element = elements[i];
 			element = new DraggableBlock(element);
+		}
+
+		for (var j = 0; j < deletes.length; j++) {
+			var deletebtn = deletes[j];
+			deletebtn = new Deletepost(deletebtn);
 		}
 
 	}
@@ -287,10 +344,36 @@ module.exports = (function(){
 
 	}
 
+	function Deletepost(deletebtn){
+
+		this.del = deletebtn;
+		this.del.addEventListener('click', this.clickDeleteHandler.bind(this));	
+
+	}
+
+	Deletepost.prototype.clickDeleteHandler = function(event) {
+
+		$.post( "index.php?page=deletepostit", { 
+			id: this.del.dataset.id,
+			tabel: this.del.dataset.tabel
+		})
+		.done(function( data ) {
+	    console.log(data);
+
+	    });
+
+	    var postit = this.del.parentNode;
+	    console.log(postit);
+
+	    $(postit).remove();
+	};
+
 	DraggableBlock.prototype.mouseDownHandler = function(event) {
 		event.preventDefault();
 		this.offsetX = event.offsetX;
 		this.offsetY = event.offsetY;
+		this.el.style.zIndex = hoogte;
+    hoogte ++;
 		this._mousemoveHandler = this.mousemoveHandler.bind(this);
 		this._mouseupHandler = this.mouseupHandler.bind(this);
 		window.addEventListener('mousemove', this._mousemoveHandler);
@@ -300,8 +383,6 @@ module.exports = (function(){
 	};
 
 	DraggableBlock.prototype.mousemoveHandler = function(event) {
-    		this.el.style.zIndex = hoogte;
-    		hoogte ++;
         this.el.style.left = (event.pageX - this.offsetX) + "px";
         this.el.style.top = (event.pageY - this.offsetY) + "px";
 
@@ -310,7 +391,6 @@ module.exports = (function(){
 	DraggableBlock.prototype.mouseupHandler = function(event) {
 		window.removeEventListener('mousemove', this._mousemoveHandler);
     window.removeEventListener('mouseup', this._mouseupHandler);
-    console.log(this.el.dataset);
     $.post( "index.php?page=postxy", { 
     	
 			x: this.el.offsetLeft,
@@ -319,9 +399,9 @@ module.exports = (function(){
 			tabel: this.el.dataset.tabel
 		})
 		.done(function( data ) {
-	    console.log(data);
 
 	  }
+	  
 	)};
 
 

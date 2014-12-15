@@ -47,6 +47,16 @@ body {
 	}
 }
 
+.deletebtn{
+	width:39px;
+	height:39px;
+	background:url('../../img/close.png');
+	background-repeat: no-repeat;
+	position: absolute;
+	margin-left:-40px;
+	cursor:pointer;
+}
+
 .label{
 	font-family: "Mohave", sans-serif;
 	text-align:center;
@@ -125,12 +135,6 @@ body {
 	position: relative;
 	z-index: 999;
 
-<<<<<<< HEAD
-	// display: none;
-
-
-=======
->>>>>>> 2ed0fba905ab233be2c3d88824016fd4fe2b6756
 	a {
 		color: white;
 		text-decoration: none;
@@ -276,6 +280,7 @@ body {
 	float:left;
 	overflow:hidden;
 	margin-left:30px;
+	margin-top:30px;
 
 	h1{
 		margin-top:-10px;
@@ -324,11 +329,7 @@ body {
 
 .dragdrop {
 	position: absolute;
-	left: 200px;
-	// box-shadow: 0 0 25px #060606;
-	// left: 300px;
 	@include border-box-default;
-
 }
 
 .postit {
@@ -337,6 +338,11 @@ body {
 	background-color: yellow;
 	position: absolute;
 	left: 400px;
+}
+
+.invitebtn{
+	margin-top:30px;
+	position: absolute;
 }
 
 
