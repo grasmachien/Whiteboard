@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Dec 16, 2014 at 12:59 AM
+-- Generation Time: Dec 16, 2014 at 03:10 AM
 -- Server version: 5.5.38
 -- PHP Version: 5.6.2
 
@@ -33,7 +33,7 @@ CREATE TABLE `whiteboard_img` (
   `extension` varchar(255) NOT NULL,
   `x` int(11) NOT NULL,
   `y` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `whiteboard_img`
@@ -41,14 +41,12 @@ CREATE TABLE `whiteboard_img` (
 
 INSERT INTO `whiteboard_img` (`id`, `project`, `photo`, `extension`, `x`, `y`) VALUES
 (1, 'nieuwprojectvoorvideo', 'nuffomslag', 'jpg', 0, 0),
-(21, 'testuploads', 'Screen Shot 2014-12-13 at 14.37.14', 'png', 424, 648),
+(21, 'testuploads', 'Screen Shot 2014-12-13 at 14.37.14', 'png', 537, 526),
 (29, 'kak', 'This is some extra data', 'skijt', 200, 200),
 (30, 'kak', 'kaka', 'skijt', 200, 200),
 (32, '', 'shitman', 'jpg', 200, 200),
-(36, 'papapapapa', 'shitman', 'jpg', 983, 34),
-(38, 'clear txtarea', 'shitman', 'jpg', 696, 150),
-(41, 'papapapapa', 'bacon2', 'jpg', 902, 433),
-(42, 'papapapapa', 'kim-van-haelen_th', 'png', 260, 31);
+(38, 'clear txtarea', 'shitman', 'jpg', 968, 184),
+(43, 'clearproject', 'Screen Shot 2014-12-13 at 14.37.14', 'png', 1336, 716);
 
 -- --------------------------------------------------------
 
@@ -130,7 +128,7 @@ CREATE TABLE `whiteboard_tekst` (
   `project` varchar(255) NOT NULL,
   `x` int(11) NOT NULL,
   `y` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `whiteboard_tekst`
@@ -155,25 +153,13 @@ INSERT INTO `whiteboard_tekst` (`id`, `tekst`, `project`, `x`, `y`) VALUES
 (16, 'werktdanNUUUkjazdjahzdazhjaz', 'nieuwprojectvoorvideo', 0, 0),
 (17, 'werktdanNUUUkjazdjahzdazhjaz', 'nieuwprojectvoorvideo', 0, 0),
 (18, 'hetwerktnutochhopelijk', 'nieuwprojectvoorvideo', 0, 0),
-(21, 'okenumoetdawerken eh', 'matthiasznnieuwproject', 99, 129),
+(21, 'okenumoetdawerken eh', 'matthiasznnieuwproject', 714, 184),
 (34, 'eerste ajax postit yeeeey', 'testuploads#', 200, 200),
 (35, 'biatch', 'testuploads#', 200, 200),
-(38, 'tette', 'testuploads', 334, 336),
-(42, 'tette', 'neinnnn', 819, 17),
 (51, 'tette kop', 'clear%20txtarea', 200, 200),
 (52, 'tette kopkkkkk', 'clear%20txtarea', 200, 200),
-(73, 'blabla', 'clearproject', 635, 192),
-(77, ' apen kak', 'testreq', 357, 155),
-(81, 'kjznkjzndkjzendz', 'papapapapa', 1355, 505),
-(82, ' hh', 'papapapapa', 488, 514),
 (83, 'kakje', 'clear%20txtarea', 200, 200),
-(85, 'yolo', 'inviteTest', 877, 172),
-(86, ' ', 'inviteTest', 367, 193),
-(87, 'tits', 'inviteTest', 804, 531),
-(88, ' ', 'inviteTest', 1207, 359),
-(89, 'kakske', 'inviteTest', 547, 541),
-(90, 'kak', 'papapapapa', 1380, 125),
-(91, 'yolo', 'papapapapa', 243, 537);
+(93, ' vv', 'clearproject', 611, 239);
 
 -- --------------------------------------------------------
 
@@ -230,11 +216,7 @@ INSERT INTO `whiteboard_video` (`id`, `name`, `video`, `project`, `x`, `y`) VALU
 (10, 'nqbnqbnbnz', 'nqbnqbnbnz.mp4', 'nieuwprojectvoorvideo', 0, 0),
 (11, 'zehjejhezhjezhjee', 'zehjejhezhjezhjee.mp4', 'nieuwprojectvoorvideo', 0, 0),
 (18, 'jepla', 'jepla.mp4', 'testuploads', 285, 64),
-(23, 'jhzjhze', 'jhzjhze.mp4', 'papapapapa', 641, 25),
-(26, 'kjazdkjzjkzda', 'kjazdkjzjkzda.mp4', 'papapapapa', 200, 200),
-(27, 'azkjdazjbdjhzad', 'azkjdazjbdjhzad.mp4', 'papapapapa', 886, 644),
-(28, 'lololo', 'lololo.mp4', 'papapapapa', 585, 381),
-(29, 'papapapapa', 'papapapapa.mp4', 'clearproject', 200, 200);
+(26, 'kjazdkjzjkzda', 'kjazdkjzjkzda.mp4', 'papapapapa', 1152, 135);
 
 --
 -- Indexes for dumped tables
@@ -284,7 +266,7 @@ ALTER TABLE `whiteboard_video`
 -- AUTO_INCREMENT for table `whiteboard_img`
 --
 ALTER TABLE `whiteboard_img`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=43;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=44;
 --
 -- AUTO_INCREMENT for table `whiteboard_invites`
 --
@@ -299,7 +281,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 -- AUTO_INCREMENT for table `whiteboard_tekst`
 --
 ALTER TABLE `whiteboard_tekst`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=92;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=94;
 --
 -- AUTO_INCREMENT for table `whiteboard_users`
 --
